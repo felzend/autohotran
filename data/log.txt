@@ -1,2 +1,0 @@
-[06/10/2017 11:21:30]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 11:21:32]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
