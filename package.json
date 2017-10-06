@@ -1,0 +1,29 @@
+{
+  "name": "autohotran",
+  "version": "0.1.0",
+  "description": "Automatic hotran catcher for Brazil",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felzend/autohotran.git"
+  },
+  "keywords": [
+    "hotran",
+    "sbfz",
+    "aviation",
+    "schedule"
+  ],
+  "author": "Felipe S. Fernandes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felzend/autohotran/issues"
+  },
+  "homepage": "https://github.com/felzend/autohotran#readme",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "mongoose": "^4.12.0"
+  }
+}
