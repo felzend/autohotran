@@ -5,20 +5,16 @@ var settings = require("./settings");
 
 page.open("http://www2.anac.gov.br/hotran/hotran_data.asp", function (status) {
 	if( status === "success" ) {
-		console.log("Page loaded.");
-		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {
+		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {			
 			page.evaluate(function() {
-				$("select").val(50553);
-			});			
-			page.evaluate(function() {
+				$("select").val(50747);
 				$("input[alt=Consultar]").click();
 			})
 		});	
 	}
 });
 page.onLoadFinished = function(status) {
-	if( status === "success" && page.url == "http://www2.anac.gov.br/hotran/HOTRAN_data.asp" ) {
-		console.log("Loaded table.");
+	if( status === "success" && page.url == "http://www2.anac.gov.br/hotran/HOTRAN_data.asp" ) {		
 		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {			
 			var html = page.evaluate(function() {								
 				var rows = $("table").find("tr:nth-child(n+4)");
@@ -63,7 +59,7 @@ page.onLoadFinished = function(status) {
 				return hotran;
 			});
 			var date = moment().format("DD/MM/YYYY HH:mm:ss");
-			fs.write(settings.filedir, JSON.stringify(html));
+			fs.write(settings.datafile, JSON.stringify(html));
 			fs.write(settings.logfile, "["+date+"]: HOTRAN salvo com sucesso em txt.\n", "a");
 			phantom.exit();			
 		});
