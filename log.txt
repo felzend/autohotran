@@ -1,115 +1,30 @@
-[05/10/2017 23:55:02]: HOTRAN salvo com sucesso em txt.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:02]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:12]: HOTRAN salvo com sucesso em txt.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:55:13]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:51]: HOTRAN salvo com sucesso em txt.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:56:52]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN salvo com sucesso em txt.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[05/10/2017 23:59:11]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:00:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:01:38]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:28]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:29]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:02:41]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:47]: HOTRAN salvo com sucesso em txt.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
-[06/10/2017 00:06:48]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:30]: HOTRAN novo identificado e salvo na database!.
+[06/10/2017 01:00:40]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:02:33]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:02:34]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:03:13]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:03:13]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:05:09]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:05:09]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:05:56]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:05:56]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:06:25]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:06:26]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:07:28]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:07:28]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:07:39]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:07:39]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.
+[06/10/2017 01:08:57]: HOTRAN salvo com sucesso em txt.
+[06/10/2017 01:08:57]: 0 novo(s) hotran(s) identificado(s) e salvo(s) na database!.

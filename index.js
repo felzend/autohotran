@@ -26,22 +26,24 @@ fs.open(settings.logfile, 'a+', (err, fd) => {
 	});
 });
 
-watch(settings.filedir, { recursive: true }, (evt, name) => {
-	var newRecords = 0;
-	let dir = name.replace(/\\/g, "/");
+watch(settings.filedir, { recursive: true }, (evt, name) => {	
+	var dir = name.replace(/\\/g, "/");
+	var newRecords = 0; // FIX - Transformar em global no escopo.
 	if(evt === "update" && dir === settings.filedir) {
 		fs.readFile(settings.filedir, 'utf8', (err, data) => {
-			if(err) throw err;
+			if(err) throw err;		
 
-			let schedules = JSON.parse(data);
-			for(let a = 0; a < schedules.length; a++) 
+			var schedules = JSON.parse(data);
+			for(var a = 0; a < schedules.length; a++) 
 			{
-				var cs = schedules[a];
-				console.log("Checking for "+cs.voo+" | Date: " +cs.data_solicitacao );
-				models.Schedule.findOne({ voo: cs.voo, data_solicitacao: cs.data_solicitacao }, (err, result) => {
-					if(err) throw (err);
+				let cs = schedules[a];				
+				console.log("Checking for "+cs.voo+" | " +cs.cod_hotran );
+				models.Schedule.findOne({ voo: cs.voo, cod_hotran: cs.cod_hotran }, function(err, result) {
+					if(err) throw (err);					
 					if(result == null)
-					{
+					{	
+						++newRecords;
+						console.log(newRecords+" records.");
 						cs.created = moment().format('YYYY-MM-DD HH:mm:ss');						
 						let schedule = new models.Schedule(cs);
 						schedule.save((err, schedule) => {
@@ -50,15 +52,15 @@ watch(settings.filedir, { recursive: true }, (evt, name) => {
 								throw(err);
 								return;
 							}							
-						});
-
-						var date = moment().format("DD/MM/YYYY HH:mm:ss");						
-						fs.appendFile(settings.logfile, "["+date+"]: HOTRAN novo identificado e salvo na database!.\n", err => {
-							if(err) throw(err);
-						});
+						});						
 					}
 				});				
 			}
+
+			var date = moment().format("DD/MM/YYYY HH:mm:ss");
+			fs.appendFile(settings.logfile, "["+date+"]: "+newRecords+" novo(s) hotran(s) identificado(s) e salvo(s) na database!.\n", err => {
+				if(err) throw(err);
+			});
 		});
 	}
 });
