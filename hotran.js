@@ -7,17 +7,20 @@ page.open("http://www2.anac.gov.br/hotran/hotran_data.asp", function (status) {
 	if( status === "success" ) {
 		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {			
 			page.evaluate(function() {
-				$("select").val(50747);
+				//$("select").val(50747);
 				$("input[alt=Consultar]").click();
 			})
 		});	
 	}
 });
 page.onLoadFinished = function(status) {
-	if( status === "success" && page.url == "http://www2.anac.gov.br/hotran/HOTRAN_data.asp" ) {		
-		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {			
-			var html = page.evaluate(function() {								
-				var rows = $("table").find("tr:nth-child(n+4)");
+	if( status === "success" && page.url == "http://www2.anac.gov.br/hotran/HOTRAN_data.asp" ) {
+		fs.write(settings.datafile, page.content);
+		page.close();
+		phantom.exit();
+		//page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js', function() {			
+			//var html = page.evaluate(function() {				
+				/*var rows = $("table").find("tr:nth-child(n+4)");
 				var hotran = [];
 				for( var i = 0; i < rows.length; i++) {
 					var row = rows[i];
@@ -56,12 +59,12 @@ page.onLoadFinished = function(status) {
 					}
 					hotran.push( object );
 				}
-				return hotran;
-			});
-			var date = moment().format("DD/MM/YYYY HH:mm:ss");
+				return hotran;*/
+			//});			
+			/*var date = moment().format("DD/MM/YYYY HH:mm:ss");
 			fs.write(settings.datafile, JSON.stringify(html));
-			fs.write(settings.logfile, "["+date+"]: HOTRAN salvo com sucesso em txt.\n", "a");
-			phantom.exit();			
-		});
+			fs.write(settings.logfile, "["+date+"]: HOTRAN salvo com sucesso em txt.\n", "a");*/
+			//phantom.exit();			
+		//});
 	}
 }
