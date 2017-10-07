@@ -28,12 +28,19 @@ fs.open(".env", "a+", (err, fd) => {
 });
 
 mongoose.connect(connectionString, {useMongoClient: true, promiseLibrary: global.Promise }, (err) => {
+	var now = moment().format("DD/MM/YYYY HH:mm:ss");
 	if(err) {
-		var now = moment().format("DD/MM/YYYY HH:mm:ss");
 		fs.appendFile(settings.logfile, "["+now+"]: erro ao conectar à database.\n", err => {
 			if(err) throw(err);
 		});
+
+		throw err;
 	}
+	
+	fs.appendFile(settings.logfile, "["+now+"]: conectado à database.\n", err => {
+		process.exit(1);					
+	});
+
 });
 
 var hotrans = new Array();
