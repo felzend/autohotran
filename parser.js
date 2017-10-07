@@ -38,8 +38,10 @@ mongoose.connect(connectionString, {useMongoClient: true, promiseLibrary: global
 	}
 	
 	fs.appendFile(settings.logfile, "["+now+"]: conectado à database.\n", err => {
-		process.exit(1);					
+		if(err) throw err;			
 	});
+
+	console.log("Conected DB");
 
 });
 
@@ -55,6 +57,7 @@ var request = http.get(fileurl, function(response) {
 			if( index < 3) return;		
 			models.Schedule.findOne({voo: obj.field3, cod_hotran: obj.field13}, function(err, result) {				
 				if(err) throw err;
+				console.log("IDX: "+index);
 				if(result == null)
 				{
 					var now = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -104,13 +107,14 @@ var request = http.get(fileurl, function(response) {
 				var schedule = new models.Schedule(hotran);
 				schedule.save((err, schedule) => {
 					if(err) throw err;
-					callback.call();
+					callback();
 				});
 			}, function() {
 				var now = moment().format("DD/MM/YYYY HH:mm:ss");
 				fs.appendFile(settings.logfile, "["+now+"]: "+hotrans.length+" novo(s) hotran(s) identificado(s) e salvo(s) na database!.\n", err => {
-					process.exit(1);					
+					if(err) throw err;
 				});
+				process.exit(1);
 			});			
 		});
 	});
