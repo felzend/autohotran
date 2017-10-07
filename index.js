@@ -9,7 +9,7 @@ var settings = require("./settings");
 var async = require("async");
 var connectionString = 'mongodb://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@localhost:27017/'+process.env.DB_NAME;
 
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 
 fs.open(settings.datafile, 'a+', (err, fd) => {
 	fs.close(fd, (err) => {
