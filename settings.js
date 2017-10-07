@@ -1,3 +1,3 @@
 var fs = require('fs');
-exports.datafile = 'data/hotran-schedule-table.txt';
+exports.csvfile = "data/hotran.csv";
 exports.logfile = 'data/log.txt';
