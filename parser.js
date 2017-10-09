@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-var moment = require("moment");
+var moment = require("moment-timezone");
 var http = require('http');
 var mongoose = require('mongoose');
 var fs = require("fs");
@@ -12,7 +12,7 @@ var csv = require('csvtojson');
 var shell = require('shelljs');
 var cron = require('node-cron');
 
-var today = moment().format("DD/MM/YYYY");
+var today = moment().tz('America/Fortaleza').format("DD/MM/YYYY");
 var fileurl = "http://www2.anac.gov.br/hotran/hotran_data.asp?dt_hotran="+today+"&id_empresa=&formato=csv";
 var connectionString = 'mongodb://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@localhost:27017/'+process.env.DB_NAME;
 const csvFilePath = __dirname + '/' + settings.csvfile;
@@ -31,7 +31,7 @@ cron.schedule('0 * * * *', function() {
 	});
 
 	mongoose.connect(connectionString, {useMongoClient: true, promiseLibrary: global.Promise }, (err) => {
-		var now = moment().format("DD/MM/YYYY HH:mm:ss");
+		var now = moment().tz('America/Fortaleza').format("DD/MM/YYYY HH:mm:ss");
 		if(err) {
 			fs.appendFile(settings.logfile, "["+now+"]: erro ao conectar à database.\n", err => {
 				if(err) throw(err);
@@ -45,7 +45,7 @@ cron.schedule('0 * * * *', function() {
 		});
 	});
 
-	var downloadedCsv = 'data/downloaded-hotran-'+moment().unix()+".csv"; 
+	var downloadedCsv = 'data/downloaded-hotran-'+moment().tz('America/Fortaleza').unix()+".csv"; 
 	var hotrans = new Array();
 	var file = fs.createWriteStream(downloadedCsv);
 	var request = http.get(fileurl, function(response) {
@@ -64,7 +64,7 @@ cron.schedule('0 * * * *', function() {
 							if(err) throw err;
 							if(result == null)
 							{
-								var now = moment().format("YYYY-MM-DD HH:mm:ss");
+								var now = moment().tz('America/Fortaleza').format("YYYY-MM-DD HH:mm:ss");
 								var codeshare = '';
 								if(obj.field25 !== undefined) {
 									obj.field25.split('-').map(function(code) { 
@@ -116,7 +116,7 @@ cron.schedule('0 * * * *', function() {
 								callback.call();
 							});
 						}, function() {							
-							var now = moment().format("DD/MM/YYYY HH:mm:ss");
+							var now = moment().tz('America/Fortaleza').format("DD/MM/YYYY HH:mm:ss");
 							fs.appendFile(settings.logfile, "["+now+"]: "+hotrans.length+" novo(s) hotran(s) identificado(s) e salvo(s) na database!.\n", err => {
 								if(err) throw err;
 								shell.rm(downloadedCsv);
