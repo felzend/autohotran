@@ -2,7 +2,6 @@ require('dotenv').config();
 var connectionString = 'mongodb://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@localhost:27017/'+process.env.DB_NAME;
 
 // Dependencies.
-var moment = require("moment");
 var http = require('http');
 var mongoose = require('mongoose');
 var fs = require("fs");
@@ -11,6 +10,8 @@ var models = require('./models');
 var settings = require("./settings");
 var async = require("async");
 var csv = require('csvtojson');
+var shell = require('shelljs');
+var cron = require('node-cron');
 
 // Creating log file if it doesn't exists.
 fs.open(settings.logfile, 'a+', (err, fd) => {
@@ -59,4 +60,4 @@ async.eachLimit( settings.hotrans, 3, function(hotran, callback) {
 	});
 }, function() {
 	process.exit(1);
-});
+}
