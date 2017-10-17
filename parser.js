@@ -12,6 +12,8 @@ var async = require("async");
 var csv = require('csvtojson');
 var shell = require('shelljs');
 var cron = require('node-cron');
+var moment = require('moment');
+var xlsx = require('node-xlsx');
 
 // Creating log file if it doesn't exists.
 fs.open(settings.logfile, 'a+', (err, fd) => {
@@ -44,8 +46,8 @@ mongoose.connect(connectionString, {useMongoClient: true, promiseLibrary: global
 });
 
 // Downloading all hotran files.
-async.eachLimit( settings.hotrans, 3, function(hotran, callback) {
-	var file = fs.createWriteStream( hotran.path );
+async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
+	var file = fs.createWriteStream( __dirname + hotran.path );
 	var request = http.get( hotran.url, function(response) {
 		if(response.statusCode == 500) {
 			var now = moment().format("DD/MM/YYYY HH:mm:ss");
@@ -54,10 +56,33 @@ async.eachLimit( settings.hotrans, 3, function(hotran, callback) {
 			});			
 		}
 		response.pipe(file).on('finish', function() {
-			console.log("Downloaded", hotran.url );
 			callback();
 		});
 	});
 }, function() {
-	process.exit(1);
-}
+	console.log("Downloaded all hotran files.");
+	async.eachLimit( settings.hotrans, 1, function(hotran, callback) {		
+		var workSheets = xlsx.parse( __dirname + hotran.path );
+		async.eachLimit( workSheets, 1, function(worksheet, callback) {
+			worksheet.data.splice(0, 4);	
+			async.eachLimit( worksheet.data, 50, function(data, callback) {
+				if( data.length ) {					
+					if( hotran.hasOwnProperty('dropColumns') ) {
+						for( let n in hotran.dropColumns ) {
+							data.splice( hotran.dropColumns[n], 1 );							
+						}
+					}					
+				}				
+				process.nextTick(callback);
+			}, function() { // Callback for data.
+				console.log("Done " + hotran.path );
+				process.nextTick(callback);				
+			});
+		}, function() { // Callback for worksheets.
+			process.nextTick(callback);
+		});		
+	}, function() { // Callback for parsing all files.
+		console.log( "Finally done." );
+		process.exit(1);
+	});
+});
