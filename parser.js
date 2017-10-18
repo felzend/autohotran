@@ -65,13 +65,20 @@ async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 		var workSheets = xlsx.parse( __dirname + hotran.path );
 		async.eachLimit( workSheets, 1, function(worksheet, callback) {
 			worksheet.data.splice(0, 4);	
-			async.eachLimit( worksheet.data, 50, function(data, callback) {
-				if( data.length ) {					
+			async.eachLimit( worksheet.data, 50, function(row, callback) {
+				var data = row;
+				if( row.length ) {					
+					//console.log(row);
 					if( hotran.hasOwnProperty('dropColumns') ) {
-						for( let n in hotran.dropColumns ) {
-							data.splice( hotran.dropColumns[n], 1 );
-						}
-					}
+						row = data.filter((value, index) => {
+							//console.log("Checking for "+index+": "+value);
+							if(!hotran.dropColumns.includes(index)) {								
+								return !hotran.dropColumns.includes(index);
+							} else {
+								console.log("Excluding "+index+": "+value);
+							}
+						});
+					}					
 
 					var schedule = {
 						cod_empresa: data[0],
@@ -79,22 +86,38 @@ async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 						voo: data[2],
 						aeronave: data[3],
 						dias: {
-							segunda_feira: data[4].length > 0,
-							terca_feira: data[5].length > 0,
-							quarta_feira: data[6].length > 0,
-							quinta_feira: data[7].length > 0,
-							sexta_feira: data[8].length > 0,
-							sabado: data[9].length > 0,
-							domingo: data[10].length > 0,
+							segunda_feira: data[4].trim().length > 0,
+							terca_feira: data[5].trim().length > 0,
+							quarta_feira: data[6].trim().length > 0,
+							quinta_feira: data[7].trim().length > 0,
+							sexta_feira: data[8].trim().length > 0,
+							sabado: data[9].trim().length > 0,
+							domingo: data[10].trim().length > 0,
 						},
+						assentos: parseInt(data[11]),
+						cod_hotran: data[12],
+						tipo: data[13],
+						status: data[14],
+						data_solicitacao: data[15],	
+						data_vigencia: data[16],	
+						natureza: data[17],
+						etapa: data[18],
+						cod_origem: data[19],						
+						aeroporto_origem: data[20],
+						cod_destino: data[21],
+						aeroporto_destino: data[22],
+						horario_partida: data[23],
+						horario_chegada: data[24],
+						equipamento_alterado: data[25]
 					};
+					console.log("Data: "+row.length);
 					console.log(schedule);
 					process.nextTick(callback);
 				}				
 				else process.nextTick(callback);
 			}, function() { // Callback for data.
 				console.log("Done " + hotran.path );
-				process.nextTick(callback);				
+				process.nextTick(callback);
 			});
 		}, function() { // Callback for worksheets.
 			process.nextTick(callback);
