@@ -56,7 +56,7 @@ async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 			});			
 		}
 		response.pipe(file).on('finish', function() {
-			callback();
+			process.nextTick(callback);
 		});
 	});
 }, function() {
@@ -69,11 +69,29 @@ async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 				if( data.length ) {					
 					if( hotran.hasOwnProperty('dropColumns') ) {
 						for( let n in hotran.dropColumns ) {
-							data.splice( hotran.dropColumns[n], 1 );							
+							data.splice( hotran.dropColumns[n], 1 );
 						}
-					}					
+					}
+
+					var schedule = {
+						cod_empresa: data[0],
+						nome_empresa: data[1],
+						voo: data[2],
+						aeronave: data[3],
+						dias: {
+							segunda_feira: data[4].length > 0,
+							terca_feira: data[5].length > 0,
+							quarta_feira: data[6].length > 0,
+							quinta_feira: data[7].length > 0,
+							sexta_feira: data[8].length > 0,
+							sabado: data[9].length > 0,
+							domingo: data[10].length > 0,
+						},
+					};
+					console.log(schedule);
+					process.nextTick(callback);
 				}				
-				process.nextTick(callback);
+				else process.nextTick(callback);
 			}, function() { // Callback for data.
 				console.log("Done " + hotran.path );
 				process.nextTick(callback);				
@@ -86,3 +104,34 @@ async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 		process.exit(1);
 	});
 });
+
+/*
+cod_empresa: String,
+	nome_empresa: String,
+	voo: Number,
+	aeronave: String,
+	dias: {
+		segunda_feira: {type: Boolean, default: false},
+		terca_feira: {type: Boolean, default: false},
+		quarta_feira: {type: Boolean, default: false},
+		quinta_feira: {type: Boolean, default: false},
+		sexta_feira: {type: Boolean, default: false},
+		sabado: {type: Boolean, default: false},
+		domingo: {type: Boolean, default: false},
+	},
+	assentos: Number,
+	cod_hotran: String,
+	tipo: String,
+	status: String,
+	data_solicitacao: Date,	
+	data_vigencia: Date,	
+	natureza: String,
+	etapa: Number,
+	cod_origem: String,
+	aeroporto_origem: String,
+	cod_destino: String,
+	aeroporto_destino: String,
+	horario_partida: String,
+	horario_chegada: String,
+	equipamento_alterado: String
+	*/
