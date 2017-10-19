@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Architects+Daughter');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+
+$nav-color: #21B5E1;
+
+.navbar {
+	background-color: $nav-color;
+	.navbar-brand {
+		.site-title {
+			font-family: 'Architects Daughter', cursive;
+			font-size: 1.5em;
+		}
+		.beta {
+			font-size: 0.7em;
+			font-style: italic;
+		}
+		&:hover {
+			transition: color .5s;
+			color: darken(white, 5%);
+		}
+	}
+	.nav-item {
+		.nav-link {
+			color: #fff;
+			font-size: 1.2em;
+			font-weight: 400;
+			font-family: 'Raleway', sans-serif;
+			margin: 0 0.5em;
+			&:hover {
+				transition: color .5s;
+				color: lighten(black, 20%);
+			}
+		}
+	}
+}
+.footer {
+	text-align: center;
+}
+
+.hotran-update {	
+	font-weight: 700;
+	font-family: 'Raleway', sans-serif;
+	margin: .25em 0;	
+	text-align: right;
+}
+.hotran-list {
+	max-height: 1000px;
+	overflow-y: scroll;
+}
