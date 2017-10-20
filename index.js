@@ -50,7 +50,7 @@ app.listen( settings.serverPort, function() {
 });
 
 app.get('/', function(req, res) {
-	var today = moment();	
+	var today = moment().tz('America/Fortaleza');	
 	var hotranUpdate = { created_at: undefined, message: 'Sem recentes atualizações de hotran.' };
 	models.Hotran.find({
 		data_solicitacao: today.format('YYYY-MM-DD')

@@ -33,7 +33,7 @@
 						<td>Aeronave</td>
 						<td>Voo</td>
 						<td>Assentos</td>
-						<td>Status</td>
+						<td>Tipo</td>
 						<td>Solicitação</td>
 						<td>Vigência</td>
 						<td>Origem</td>
@@ -50,7 +50,7 @@
 						<td><%= hotran.aeronave %></td>
 						<td><%= hotran.cod_empresa + hotran.voo %></td>
 						<td><%= hotran.assentos %> pax</td>
-						<td><%= hotran.status %></td>
+						<td><%= hotran.tipo %></td>
 						<td><%= moment(hotran.data_solicitacao, 'YYYY-MM-DD').format('DD-MM-YYYY') %></td>
 						<td><%= moment(hotran.data_vigencia, 'YYYY-MM-DD').format('DD-MM-YYYY') %></td>
 						<td><%= hotran.aeroporto_origem %></td>
