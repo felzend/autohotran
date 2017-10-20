@@ -57,8 +57,8 @@ app.get('/', function(req, res) {
 		})
 		.sort({'created_at': -1})
 		.limit(1)
-		.exec(function(err, log) {
-			if( log != null ) {
+		.exec(function(err, log) {			
+			if(log.length) {
 				var date = moment(log[0].created_at, 'DD-MM-YYYY HH:mm:ss');
 				hotranUpdates.message = date.format('DD/MM/YYYY') + " as " + date.format("HH:mm:ss");
 			}			
