@@ -50,10 +50,24 @@ app.listen( settings.serverPort, function() {
 });
 
 app.get('/', function(req, res) {
-	var today = moment().tz('America/Fortaleza');	
-	var hotranUpdate = { created_at: undefined, message: 'Sem recentes atualizações de hotran.' };
-	models.Hotran.find({
-		data_solicitacao: today.format('YYYY-MM-DD')
+	var today = moment().tz('America/Fortaleza');
+	var hotranUpdates = { created_at: undefined, message: 'Sem recentes atualizações de hotran.' };		
+		models.Log.find({
+			type: settings.logCategories.hotran,
+		})
+		.sort({'created_at': -1})
+		.limit(1)
+		.exec(function(err, log) {
+			if( log != null ) {
+				var date = moment(log[0].created_at, 'DD-MM-YYYY HH:mm:ss');
+				hotranUpdates.message = date.format('DD/MM/YYYY') + " as " + date.format("HH:mm:ss");
+			}			
+			res.render('pages/index', {				
+				hotranUpdates: hotranUpdates
+			});
+		});	
+	/*models.Hotran.find({
+		data_solicitacao: "2017-10-18"//today.format('YYYY-MM-DD')
 	}, (err, hotrans) => {
 		if(err) throw err;
 		models.Log.find({
@@ -72,5 +86,19 @@ app.get('/', function(req, res) {
 				year: today.format('YYYY') 
 			});
 		});		
-	})
+	})*/
+});
+app.get('/hotran/all', function(req, res) {
+	models.Hotran.find({})
+	.sort({'nome_empresa': 1})
+	.limit(1)
+	.exec((err, hotrans) => {
+		async.eachLimit(hotrans, 1, (hotran, callback) => {
+			hotran.data_solicitacao = 'x';//moment(hotran.data_solicitacao).tz('UTC').format('YYYY-MM-DD');
+			console.log(hotran.data_solicitacao);
+			process.nextTick(callback);
+		}, function() {
+			res.json(hotrans);
+		});		
+	});
 });

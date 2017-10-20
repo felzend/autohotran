@@ -3,6 +3,17 @@
 
 $nav-color: #21B5E1;
 
+button {
+	cursor: pointer;
+	font-family: 'Raleway', sans-serif!important;
+	font-size: 1.1em;
+	font-weight: 300!important;
+	border-radius: 30px!important;
+	&:hover {
+		opacity: 0.9;
+	}
+}
+
 .navbar {
 	background-color: $nav-color;
 	.navbar-brand {
@@ -46,4 +57,18 @@ $nav-color: #21B5E1;
 .hotran-list {
 	max-height: 1000px;
 	overflow-y: scroll;
+}
+.hotran-search-warning {
+	font-size: 0.8em;
+	font-style: italic;
+}
+.hotran-btn-submit {
+	color: #fff;
+	background-color: $nav-color;
+}
+.modal {
+	.modal-title {
+		font-family: 'Architects Daughter', cursive;
+		font-size: 1.5em;
+	}
 }

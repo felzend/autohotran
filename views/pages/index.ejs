@@ -2,69 +2,118 @@
 <html>
 <% include ../partials/header.ejs %>
 <header>
-	<title>Autohotran Beta!</title>		
+	<title>Autohotran Beta!</title>
+	<script type="text/javascript">
+		(function($) {
+			$(document).ready(function() {
+				var app = new Vue({
+					el: "#hotran-app",
+					data: {
+						hotrans: [],
+						todayHotrans: [],
+					},
+					beforeMount: function() {
+						this.$http.get('/hotran/all').then(response => {
+							this.hotrans = response.body;							
+							/*this.todayHotrans = this.hotrans.filter(hotran => {								
+								return hotran.data_solicitacao == "2017-10-17";
+							});*/
+							console.log(this.hotrans);
+						});
+					}
+				});
+			});
+		})(jQuery)
+	</script>		
 </header>
 <body>
-	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="#"><span class="site-title">Autohotran</span> <span class="beta">beta!</span></a>
-		<div class="collapse navbar-collapse" id="navmenu">
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="#">Hotrans de Hoje</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Pesquisar Hotran</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Quem Somos</a></li>				
-			</ul>
+	<div id="hotran-app">
+		<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="#"><span class="site-title">Autohotran</span> <span class="beta">beta!</span></a>
+			<div class="collapse navbar-collapse" id="navmenu">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="#">Hotrans de Hoje</a></li>
+					<li class="nav-item">
+						<a class="nav-link dropdown-toggle" href="#" id="hotran-search-toggler" data-toggle="modal" data-target="#hotran-search-modal">Pesquisar Hotran</a>
+						<div class="modal fade" id="hotran-search-modal">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Pesquisa de Hotran <i class="fa fa-plane"></i></h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p class="hotran-search-warning">** Ao deixar algum dos campos abaixo vazio, seu valor será indiferente na busca.</p>
+										<div class="form-group">
+											<label for="hotran-search-company">Companhia aérea</label>
+											<select class="form-control" id="hotran-search-company">
+												<option>Teste 1</option>
+												<option>Teste 2</option>
+												<option>Teste 3</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="hotran-search-airport">Aeroporto</label>
+											<select class="form-control" id="hotran-search-airport">
+												<option>Teste 1</option>
+												<option>Teste 2</option>
+												<option>Teste 3</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="hotran-search-flight">Vôo</label>
+											<select class="form-control" id="hotran-search-flight">
+												<option>Teste 1</option>
+												<option>Teste 2</option>
+												<option>Teste 3</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="hotran-search-type">Tipo de hotran</label>
+											<select class="form-control" id="hotran-search-type">
+												<option>Teste 1</option>
+												<option>Teste 2</option>
+												<option>Teste 3</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="hotran-search-aircraft">Aeronave</label>
+											<select class="form-control" id="hotran-search-aircraft">
+												<option>Teste 1</option>
+												<option>Teste 2</option>
+												<option>Teste 3</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="hotran-search-date">Data</label>
+											<input class="form-control" type="text" id="hotran-search-date">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn hotran-btn-submit">Buscar</button>
+									</div>
+								</div>
+							</div>
+						</div>					
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Quem Somos</a></li>				
+				</ul>
+			</div>
+		</nav>
+		<div class="container-fluid">
+			<div class="hotran-update">
+				<div>Útima Atualização:</div>
+				<div><%= hotranUpdates %></div>
+				<hr>
+				<div>{{ todayHotrans.length }} novos hotrans foram capturados hoje!</div>
+			</div>			
 		</div>
-	</nav>
-	<div class="container-fluid">
-		<div class="hotran-update">
-			<div>Útima Atualização:</div>
-			<div><%= hotranUpdate %></div>
-			<hr>
-			<div><%= hotrans.length %> novos hotrans foram capturados hoje!</div>
-		</div>
-		<div class="hotran-list">
-			<table class="table table-responsive">
-				<thead>
-					<tr>
-						<td>Companhia aérea</td>
-						<td>Aeronave</td>
-						<td>Voo</td>
-						<td>Assentos</td>
-						<td>Tipo</td>
-						<td>Solicitação</td>
-						<td>Vigência</td>
-						<td>Origem</td>
-						<td>Destino</td>
-						<td>Horário Partida</td>
-						<td>Horário Chegada</td>
-						<td>Equipamento Alterado</td>
-					</tr>
-				</thead>
-				<tbody>
-					<% hotrans.forEach(function(hotran) { %>
-					<tr>
-						<td><%= hotran.nome_empresa %></td>
-						<td><%= hotran.aeronave %></td>
-						<td><%= hotran.cod_empresa + hotran.voo %></td>
-						<td><%= hotran.assentos %> pax</td>
-						<td><%= hotran.tipo %></td>
-						<td><%= moment(hotran.data_solicitacao, 'YYYY-MM-DD').format('DD-MM-YYYY') %></td>
-						<td><%= moment(hotran.data_vigencia, 'YYYY-MM-DD').format('DD-MM-YYYY') %></td>
-						<td><%= hotran.aeroporto_origem %></td>
-						<td><%= hotran.aeroporto_destino %></td>
-						<td><%= hotran.horario_partida %></td>
-						<td><%= hotran.horario_chegada %></td>
-						<td><%= hotran.equipamento_alterado %></td>
-					</tr>
-					<% }); %>
-				</tbody> 
-			</table>
-		</div>	
-		
 	</div>
-	<footer class="navbar footer">Copyright © <%= year %> - Felzend Network Inc.</footer>
+	<footer class="navbar footer">Copyright © <%= moment().tz('America/Fortaleza').format('YYYY') %> - Felzend Network Inc.</footer>
 </body>
 </html>
