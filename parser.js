@@ -13,7 +13,7 @@ var cron = require('node-cron');
 var moment = require('moment-timezone');
 var xlsx = require('node-xlsx');
 
-var schedulerString = '*/30 * * * *';
+var schedulerString = '* * * * *';
 
 // Creating log file if it doesn't exists.
 fs.open(settings.logfile, 'a+', (err, fd) => {
@@ -73,10 +73,10 @@ cron.schedule( schedulerString, function() {
 						}
 
 						var schedule = {
-							cod_empresa: data[0],
-							nome_empresa: data[1],
+							cod_empresa: data[0].trim(),
+							nome_empresa: data[1].trim(),
 							voo: data[2],
-							aeronave: data[3],
+							aeronave: data[3].trim(),
 							dias: {
 								segunda_feira: data[4].trim().length > 0,
 								terca_feira: data[5].trim().length > 0,
@@ -87,20 +87,20 @@ cron.schedule( schedulerString, function() {
 								domingo: data[10].trim().length > 0,
 							},
 							assentos: data[11],
-							cod_hotran: data[12],
-							tipo: data[13],
-							status: data[14],
+							cod_hotran: data[12].trim(),
+							tipo: data[13].trim(),
+							status: data[14].trim(),
 							data_solicitacao: moment(data[15], 'DD-MM-YYYY').format('YYYY-MM-DD'),
 							data_vigencia: moment(data[16], 'DD-MM-YYYY').format('YYYY-MM-DD'),	
-							natureza: data[17],
+							natureza: data[17].trim(),
 							etapa: data[18],
-							cod_origem: data[19],						
-							aeroporto_origem: data[20],
-							cod_destino: data[21],
-							aeroporto_destino: data[22],
-							horario_partida: data[23],
-							horario_chegada: data[24],
-							equipamento_alterado: data[25]
+							cod_origem: data[19].trim(),						
+							aeroporto_origem: data[20].trim(),
+							cod_destino: data[21].trim(),
+							aeroporto_destino: data[22].trim(),
+							horario_partida: data[23].trim(),
+							horario_chegada: data[24].trim(),
+							equipamento_alterado: data[25].trim()
 						};
 
 						models.Hotran.findOne({						
