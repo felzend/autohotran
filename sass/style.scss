@@ -72,3 +72,10 @@ button {
 		font-size: 1.5em;
 	}
 }
+.loading {
+	display: block;
+	width: 100%;	
+	img {
+		max-width: 200px;
+	}
+}
