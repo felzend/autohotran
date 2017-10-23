@@ -90,7 +90,7 @@ app.get('/hotran/api', function(req, res) {
 	var params = req.query;	
 	Object.keys(params).forEach(key => {		
 		if(!params[key].length) delete params[key];
-		else if(key === "data_solicitacao") params[key] = moment(params[key], 'DD-MM-YYYY').tz('America/Fortaleza').format('YYYY-MM-DD');
+		else if(key === "data_solicitacao") params[key] = moment(params[key], 'DD-MM-YYYY').format('YYYY-MM-DD');
 	});	
 	models.Hotran.find(params)	
 	.sort({'nome_empresa': 1})

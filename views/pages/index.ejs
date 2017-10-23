@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <% include ../partials/header.ejs %>
-<header>
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108454703-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-108454703-1');
+	</script>
 	<title>Autohotran Beta!</title>
 	<script type="text/javascript">
 		(function($) {
 			$(document).ready(function() {
-				moment.tz.add("America/Fortaleza|LMT -03 -02|2y 30 20|0121212121212121212121212121212121212121|-2glxq HdLq 1cc0 1e10 1bX0 Ezd0 So0 1vA0 Mn0 1BB0 ML0 1BB0 zX0 qe10 xb0 2ep0 nz0 1C10 zX0 1C10 LX0 1C10 Mn0 H210 Rb0 1tB0 IL0 1Fd0 FX0 1EN0 FX0 1HB0 Lz0 nsp0 WL0 1tB0 5z0 2mN0 On0|34e5");
+				moment.tz.add("America/Fortaleza");
 				var app = new Vue({
 					el: "#hotran-app",
 					data: {
@@ -57,6 +66,7 @@
 								data_solicitacao: this.hotran_date,
 							}}).then(response => {
 								this.hotrans = response.body;
+								$("#hotran-search-modal").modal('hide');
 								this.toggleView('search');
 							});							
 						},
@@ -79,7 +89,7 @@
 						}
 					},
 					mounted: function() {
-						var today = "<%= today %>";						
+						var today = "<%= today %>";
 						this.loadFields();
 						this.$http.get('/hotran/api', {params: {data_solicitacao: today}}).then(response => {
 							this.todayHotrans = response.body;							
@@ -98,21 +108,24 @@
 			});
 		})(jQuery)
 	</script>		
-</header>
+</head>
 <body>	
 	<div id="hotran-app">
 		<div class="modal fade" v-model="hotran_details" id="hotran-details-modal">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Detalhes do hotran</h5>
+						<h5 class="modal-title">Detalhes do hotran {{ hotranDetails.cod_hotran }}</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<p>Malha {{ hotranDetails.nome_empresa }} ({{ hotranDetails.cod_empresa }})</p>
-						<p>Solicitação {{ getFormattedDate(hotranDetails.data_solicitacao) }} - {{ hotranDetails.tipo }} - a Distribuir - Efetivo {{ getFormattedDate(hotranDetails.data_vigencia) }}.						
+						<p>Solicitação {{ getFormattedDate(hotranDetails.data_solicitacao) }} - {{ hotranDetails.tipo }} - a Distribuir - Efetivo {{ getFormattedDate(hotranDetails.data_vigencia) }}.</p>
+						<p>
+							{{ hotranDetails.cod_origem }} {{ hotranDetails.horario_partida}} - {{ hotranDetails.cod_destino }} {{ hotranDetails.horario_chegada }} - {{ hotranDetails.aeronave }} ({{hotranDetails.assentos}} pax)
+						</p>	
 					</div>
 				</div>
 			</div>
@@ -210,8 +223,7 @@
 								<td class="text-center">Horário Chegada</td>
 								<td class="text-center">Solicitação</td>
 								<td class="text-center">Vigência</td>
-								<td class="text-center">Tipo</td>
-								<td class="text-center">Equipamento Alterado</td>
+								<td class="text-center">Tipo</td>							
 								<td class="text-center">Dados completos</td>
 							</tr>
 						</thead>
@@ -227,8 +239,7 @@
 								<td class="text-center">{{ hotran.horario_chegada }}</td>
 								<td class="text-center">{{ getFormattedDate(hotran.data_solicitacao) }}</td>
 								<td class="text-center">{{ getFormattedDate(hotran.data_vigencia) }}</td>
-								<td class="text-center">{{ hotran.tipo }}</td>
-								<td class="text-center">{{ hotran.equipamento_alterado }}</td>
+								<td class="text-center">{{ hotran.tipo }}</td>				
 								<td class="text-center"><a href="#" v-on:click="toggleModal(hotran)"><i class="fa fa-table" aria-hidden="true"></i></a></td>
 							</tr>						
 						</tbody> 
@@ -251,8 +262,7 @@
 							<td class="text-center">Horário Chegada</td>
 							<td class="text-center">Solicitação</td>
 							<td class="text-center">Vigência</td>
-							<td class="text-center">Tipo</td>
-							<td class="text-center">Equipamento Alterado</td>
+							<td class="text-center">Tipo</td>							
 							<td class="text-center">Dados completos</td>
 						</tr>
 					</thead>
@@ -268,8 +278,7 @@
 							<td class="text-center">{{ hotran.horario_chegada }}</td>
 							<td class="text-center">{{ getFormattedDate(hotran.data_solicitacao) }}</td>
 							<td class="text-center">{{ getFormattedDate(hotran.data_vigencia) }}</td>
-							<td class="text-center">{{ hotran.tipo }}</td>
-							<td class="text-center">{{ hotran.equipamento_alterado }}</td>
+							<td class="text-center">{{ hotran.tipo }}</td>					
 							<td class="text-center"><a href="#" v-on:click="toggleModal(hotran)"><i class="fa fa-table" aria-hidden="true"></i></a></td>
 						</tr>						
 					</tbody> 
