@@ -46,8 +46,9 @@
 							var date = moment(string, 'YYYY-MM-DD').format('DD/MM/YYYY');
 							return date;
 						},
-						toggleModal: function(hotran) {							
+						toggleModal: function(hotran) {
 							this.hotranDetails = hotran;
+							//this.$http.get('/hotran/merge', {params:{}})
 							$("#hotran-details-modal").modal('show');
 						},
 						toggleView: function(key) {

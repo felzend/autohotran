@@ -70,7 +70,7 @@ app.get('/', function(req, res) {
 });
 app.get('/hotran/fields', function(req, res) {
 	if(req.query.field === undefined) { res.end(); return; }	
-	var params = req.query;	
+	var params = req.query;
 	var query = { groupBy: {}, orderBy: {} };
 	query.groupBy[params.field] = "$".concat(params.field);
 
@@ -98,5 +98,24 @@ app.get('/hotran/api', function(req, res) {
 	.exec((err, hotrans) => {
 		if(err) throw err;
 		res.json(hotrans);
+	});
+});
+app.get('/hotran/merge', function(req, res) {
+	var day = "18-10-2017";
+	var date = moment(day, 'DD-MM-YYYY').tz('America/Fortaleza').format('YYYY-MM-DD');
+	models.Hotran.find({data_solicitacao: date}).exec((err, hotrans) => {
+		var voos = [];
+		for(let i in hotrans)
+		{
+			var complemento = hotrans;
+			var hotran = hotrans[i];
+			var comp = complemento.filter(v => {
+				return v.cod_hotran == hotran.cod_hotran && v.voo == hotran.voo + 1;
+			});
+
+			if(comp.length > 0) voos.push(comp);
+		}
+
+		res.json(voos);
 	});
 });
