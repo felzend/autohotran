@@ -48,8 +48,15 @@
 						},
 						toggleModal: function(hotran) {
 							this.hotranDetails = hotran;
-							//this.$http.get('/hotran/merge', {params:{}})
-							$("#hotran-details-modal").modal('show');
+							var params = {
+								cod_hotran: this.hotranDetails.cod_hotran,
+								voo: this.hotranDetails.voo;
+								data_solicitacao: this.hotranDetails.data_solicitacao
+							}
+							this.$http.get('/hotran/merge', {params: params}).then(response => {
+								console.log(response.body);
+								$("#hotran-details-modal").modal('show');
+							});							
 						},
 						toggleView: function(key) {
 							this.views[key] = true;
