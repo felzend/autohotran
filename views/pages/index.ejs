@@ -120,11 +120,12 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body">						
 						<p>Malha {{ hotranDetails.nome_empresa }} ({{ hotranDetails.cod_empresa }})</p>
-						<p>Solicitação {{ getFormattedDate(hotranDetails.data_solicitacao) }} - {{ hotranDetails.tipo }} - a Distribuir - Efetivo {{ getFormattedDate(hotranDetails.data_vigencia) }}.</p>
+						<p>Solicitação {{ getFormattedDate(hotranDetails.data_solicitacao) }} - {{ hotranDetails.tipo }} - a Distribuir - Efetivo {{ getFormattedDate(hotranDetails.data_vigencia) }}.</p>						
 						<p>
-							{{ hotranDetails.cod_origem }} {{ hotranDetails.horario_partida}} - {{ hotranDetails.cod_destino }} {{ hotranDetails.horario_chegada }} - {{ hotranDetails.aeronave }} ({{hotranDetails.assentos}} pax)
+							{{ hotranDetails.cod_empresa }}{{ hotranDetails.voo }}
+							- {{ hotranDetails.cod_origem }} {{ hotranDetails.horario_partida}} - {{ hotranDetails.cod_destino }} {{ hotranDetails.horario_chegada }} - {{ hotranDetails.aeronave }} ({{hotranDetails.assentos}} pax)
 						</p>	
 					</div>
 				</div>
