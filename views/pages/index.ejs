@@ -54,8 +54,8 @@
 							};
 							this.$http.get('/hotran/merge', {params: params}).then(response => {
 								var voos = response.body;
-								this.hotranDetails = voos;
-								console.log(this.hotranDetails);
+								console.log(voos);
+								this.hotranDetails = voos;								
 								for( let i in this.hotranDetails ) 
 								{
 									this.hotranDetails[i]['daysDetails'] = '';
