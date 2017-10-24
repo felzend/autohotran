@@ -50,7 +50,7 @@
 							this.hotranDetails = hotran;
 							var params = {
 								cod_hotran: this.hotranDetails.cod_hotran,
-								voo: this.hotranDetails.voo;
+								voo: this.hotranDetails.voo,
 								data_solicitacao: this.hotranDetails.data_solicitacao
 							}
 							this.$http.get('/hotran/merge', {params: params}).then(response => {
