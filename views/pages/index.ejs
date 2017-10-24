@@ -33,7 +33,7 @@
 							types: [],
 							aircrafts: [],
 						},
-						hotran_details: {},
+						hotran_details: [],
 						hotran_company: '',
 						hotran_airport_origin: '',
 						hotran_airport_destination: '',						
@@ -46,15 +46,40 @@
 							var date = moment(string, 'YYYY-MM-DD').format('DD/MM/YYYY');
 							return date;
 						},
-						toggleModal: function(hotran) {
-							this.hotranDetails = hotran;
+						toggleModal: function(hotran) {							
 							var params = {
-								cod_hotran: this.hotranDetails.cod_hotran,
-								voo: this.hotranDetails.voo,
-								data_solicitacao: moment(this.hotranDetails.data_solicitacao, 'YYYY-MM-DD').format('YYYY-MM-DD')
-							}
+								cod_hotran: hotran.cod_hotran,
+								voo: hotran.voo,
+								data_solicitacao: moment(hotran.data_solicitacao, 'YYYY-MM-DD').format('YYYY-MM-DD')
+							};
 							this.$http.get('/hotran/merge', {params: params}).then(response => {
-								console.log(response.body);
+								var voos = response.body;
+								this.hotranDetails = voos;
+								for( let i in this.hotranDetails ) 
+								{
+									this.hotranDetails[i]['daysDetails'] = '';
+									for( let d in this.hotranDetails[i].days ) 
+									{
+										var day = '';
+										switch(d)
+										{
+											case 0: day = '2ª'; break;
+											case 1: day = '3ª'; break;
+											case 2: day = '4ª'; break;
+											case 3: day = '5ª'; break;
+											case 4: day = '6ª'; break;
+											case 5: day = 'sab'; break;
+											case 6: day = 'dom'; break;
+										}
+										
+										if( this.hotranDetails[i].days[d] ) 
+											this.hotranDetails[i]['daysDetails'] += day;
+										if( d < this.hotranDetails[i].length - 1 ) 
+											this.hotranDetails[i]['daysDetails'] += ', ';
+									}
+								}
+								
+								console.log(this.hotranDetails);
 								$("#hotran-details-modal").modal('show');
 							});							
 						},

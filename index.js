@@ -102,16 +102,16 @@ app.get('/hotran/api', function(req, res) {
 	});
 });
 app.get('/hotran/merge', function(req, res) {
-	var params = req.query;	// cod_hotran, data_solicitacao, voo.
+	var params = req.query;	// cod_empresa, cod_hotran, data_solicitacao, voo.
 	// Deve-se pesquisar pelo cod_hotran para verificar voos de ida e volta.	
-	models.Hotran.find({cod_hotran: params.cod_hotran, data_solicitacao: params.data_solicitacao}).exec((err, hotrans) => {
+	models.Hotran.find({cod_empresa: params.cod_empresa, cod_hotran: params.cod_hotran, data_solicitacao: params.data_solicitacao}).exec((err, hotrans) => {
 		if(err) throw err;
 		var voos = [];
 		var hotranList = hotrans;
 		_.each( hotrans, hotran => {
 			if(hotran.voo == params.voo) {
 				_.filter( hotranList, hotranCopy => {
-					if(hotran.cod_hotran == hotranCopy.cod_hotran && ( hotranCopy.voo == hotran.voo || hotranCopy.voo == hotran.voo + 1 )) {
+					if(hotran.cod_hotran == hotranCopy.cod_hotran && ( hotranCopy.voo == hotran.voo || hotranCopy.voo == hotran.voo + 1 || hotranCopy.voo == hotran.voo - 1 )) {
 						hotranList = _.without(hotranList, hotranCopy);
 						voos.push(hotranCopy);
 						return hotranCopy;
