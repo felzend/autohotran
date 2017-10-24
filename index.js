@@ -101,20 +101,22 @@ app.get('/hotran/api', function(req, res) {
 	});
 });
 app.get('/hotran/merge', function(req, res) {
-	var day = "18-10-2017";
-	var date = moment(day, 'DD-MM-YYYY').tz('America/Fortaleza').format('YYYY-MM-DD');
-	models.Hotran.find({data_solicitacao: date}).exec((err, hotrans) => {
+	var params = req.query;	// cod_hotran, data_solicitacao, voo.
+	// Deve-se pesquisar pelo cod_hotran para verificar voos de ida e volta.	
+	models.Hotran.find({cod_hotran: params.cod_hotran, data_solicitacao: params.data_solicitacao}).exec((err, hotrans) => {
 		var voos = [];
-		for(let i in hotrans)
-		{
-			var complemento = hotrans;
-			var hotran = hotrans[i];
-			var comp = complemento.filter(v => {
-				return v.cod_hotran == hotran.cod_hotran && v.voo == hotran.voo + 1;
-			});
-
-			if(comp.length > 0) voos.push(comp);
-		}
+		var hotranList = hotrans;
+		_.each( hotrans, hotran => {
+			if(hotran.voo == params.voo) {
+				_.filter( hotranList, hotranCopy => {
+					if(hotran.cod_hotran == hotranCopy.cod_hotran && ( hotranCopy.voo == hotran.voo || hotranCopy.voo == hotran.voo + 1 )) {
+						hotranList = _.without(hotranList, hotranCopy);
+						voos.push(hotranCopy);
+						return hotranCopy;
+					}
+				});
+			}
+		});	
 
 		res.json(voos);
 	});
