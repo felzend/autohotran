@@ -10,6 +10,7 @@ var settings = require("./settings");
 var async = require("async");
 var moment = require('moment-timezone');
 var express = require("express");
+var _ = require("underscore");
 
 var app = express();
 
@@ -104,6 +105,7 @@ app.get('/hotran/merge', function(req, res) {
 	var params = req.query;	// cod_hotran, data_solicitacao, voo.
 	// Deve-se pesquisar pelo cod_hotran para verificar voos de ida e volta.	
 	models.Hotran.find({cod_hotran: params.cod_hotran, data_solicitacao: params.data_solicitacao}).exec((err, hotrans) => {
+		if(err) throw err;
 		var voos = [];
 		var hotranList = hotrans;
 		_.each( hotrans, hotran => {

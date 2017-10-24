@@ -51,7 +51,7 @@
 							var params = {
 								cod_hotran: this.hotranDetails.cod_hotran,
 								voo: this.hotranDetails.voo,
-								data_solicitacao: this.hotranDetails.data_solicitacao
+								data_solicitacao: moment(this.hotranDetails.data_solicitacao, 'YYYY-MM-DD').format('YYYY-MM-DD')
 							}
 							this.$http.get('/hotran/merge', {params: params}).then(response => {
 								console.log(response.body);
