@@ -54,13 +54,12 @@
 								data_solicitacao: moment(hotran.data_solicitacao, 'YYYY-MM-DD').format('YYYY-MM-DD')
 							};
 							this.$http.get('/hotran/merge', {params: params}).then(response => {
-								var voos = response.body;
-								console.log(voos);
-								this.hotranDetails = voos;								
-								for( let i in this.hotranDetails ) 
+								var voos = response.body;								
+								this.hotranDetails = voos;
+								for( var i in this.hotranDetails ) 
 								{
 									this.hotranDetails[i]['daysDetails'] = '';
-									for( let d in this.hotranDetails[i].days ) 
+									for( var d in this.hotranDetails[i].dias ) 
 									{
 										var day = '';
 										switch(d)
@@ -77,10 +76,7 @@
 										if( this.hotranDetails[i].days[d] ) 
 											this.hotranDetails[i]['daysDetails'] += day;
 										if( d < this.hotranDetails[i].length - 1 ) 
-											this.hotranDetails[i]['daysDetails'] += ', ';
-
-										console.log(this.hotranDetails[i].days);
-										console.log(this.hotranDetails[i]['daysDetails']);
+											this.hotranDetails[i]['daysDetails'] += ', ';								
 									}
 
 									console.log(this.hotranDetails);
