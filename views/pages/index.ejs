@@ -76,10 +76,14 @@
 											this.hotranDetails[i]['daysDetails'] += day;
 										if( d < this.hotranDetails[i].length - 1 ) 
 											this.hotranDetails[i]['daysDetails'] += ', ';
+
+										console.log(this.hotranDetails[i].days);
+										console.log(this.hotranDetails[i]['daysDetails']);
 									}
-								}
+
+									console.log(this.hotranDetails);
+								}								
 								
-								console.log(this.hotranDetails);
 								$("#hotran-details-modal").modal('show');
 							});							
 						},
