@@ -48,6 +48,7 @@
 						},
 						toggleModal: function(hotran) {							
 							var params = {
+								cod_empresa: hotran.cod_empresa,
 								cod_hotran: hotran.cod_hotran,
 								voo: hotran.voo,
 								data_solicitacao: moment(hotran.data_solicitacao, 'YYYY-MM-DD').format('YYYY-MM-DD')
