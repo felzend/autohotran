@@ -13,7 +13,7 @@ var cron = require('node-cron');
 var moment = require('moment-timezone');
 var xlsx = require('node-xlsx');
 
-var schedulerString = '*/30 * * * *';
+var schedulerString = '* * * * *';
 
 // Creating log file if it doesn't exists.
 fs.open(settings.logfile, 'a+', (err, fd) => {

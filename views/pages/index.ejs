@@ -20,7 +20,7 @@
 					el: "#hotran-app",
 					data: {
 						hotrans: [],
-						hotranDetails: {},
+						hotranDetails: [{}],
 						todayHotrans: [],
 						views: {
 							today: true,
@@ -58,29 +58,26 @@
 								this.hotranDetails = voos;
 								for( var i in this.hotranDetails ) 
 								{
-									this.hotranDetails[i]['daysDetails'] = '';
+									var days = [];									 		
 									for( var d in this.hotranDetails[i].dias ) 
 									{
-										var day = '';
-										switch(d)
+										if( this.hotranDetails[i].dias[d] )
 										{
-											case 0: day = '2ª'; break;
-											case 1: day = '3ª'; break;
-											case 2: day = '4ª'; break;
-											case 3: day = '5ª'; break;
-											case 4: day = '6ª'; break;
-											case 5: day = 'sab'; break;
-											case 6: day = 'dom'; break;
+											switch(d)
+											{															
+												case 'domingo': days.push('dom'); break;
+												case 'sabado': days.push('sab'); break;
+												case 'sexta_feira': days.push('6ª'); break;
+												case 'quinta_feira': days.push('5ª'); break;
+												case 'quarta_feira': days.push('4ª'); break;
+												case 'terca_feira': days.push('3ª'); break;
+												case 'segunda_feira': days.push('2ª'); break;
+											}
 										}
-										
-										if( this.hotranDetails[i].dias[d] ) 
-											this.hotranDetails[i]['daysDetails'] += day;
-										if( d < this.hotranDetails[i].length - 1 ) 
-											this.hotranDetails[i]['daysDetails'] += ', ';								
 									}
-
-									console.log(this.hotranDetails);
-								}								
+									
+									this.hotranDetails[i]['daysDetails'] = days.reverse().join(", ");	
+								}
 								
 								$("#hotran-details-modal").modal('show');
 							});							
@@ -156,12 +153,14 @@
 						</button>
 					</div>
 					<div class="modal-body">						
-						<p>Malha {{ hotranDetails.nome_empresa }} ({{ hotranDetails.cod_empresa }})</p>
-						<p>Solicitação {{ getFormattedDate(hotranDetails.data_solicitacao) }} - {{ hotranDetails.tipo }} - a Distribuir - Efetivo {{ getFormattedDate(hotranDetails.data_vigencia) }}.</p>						
-						<p>
-							{{ hotranDetails.cod_empresa }}{{ hotranDetails.voo }}
-							- {{ hotranDetails.cod_origem }} {{ hotranDetails.horario_partida}} - {{ hotranDetails.cod_destino }} {{ hotranDetails.horario_chegada }} - {{ hotranDetails.aeronave }} ({{hotranDetails.assentos}} pax)
-						</p>	
+						<p>Malha {{ hotranDetails[0].nome_empresa }} ({{ hotranDetails[0].cod_empresa }})</p>
+						<p><b>Solicitação {{ getFormattedDate(hotranDetails[0].data_solicitacao) }} – {{ hotranDetails[0].tipo }} – a Distribuir – Efetivo {{ getFormattedDate(hotranDetails[0].data_vigencia) }}.</b></p>
+						
+						<div v-for="flight in hotranDetails">{{ flight.cod_empresa }}{{ flight.voo }} – {{ flight.daysDetails }} – {{ flight.cod_origem }} {{ flight.horario_partida }} {{ flight.cod_destino }} {{ flight.horario_chegada }} – {{ flight.aeronave }} ({{ flight.assentos }} pax)						
+						</div>
+						<br/>
+						
+						<p><b>Hotran {{ hotranDetails[0].cod_hotran }} ({{ hotranDetails[0].natureza }})</b></p>	
 					</div>
 				</div>
 			</div>

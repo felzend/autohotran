@@ -55,8 +55,7 @@ button {
 	text-align: right;
 }
 .hotran-list {
-	max-height: 1000px;
-	overflow-y: scroll;
+	
 }
 .hotran-search-warning {
 	font-size: 0.8em;
@@ -67,6 +66,11 @@ button {
 	background-color: $nav-color;
 }
 .modal {
+	.modal-content {
+		@media screen and (min-width: 768px) {
+			width: 720px;
+		}
+	}
 	.modal-title {
 		font-family: 'Architects Daughter', cursive;
 		font-size: 1.5em;
