@@ -52,7 +52,7 @@ app.listen( settings.serverPort, function() {
 
 app.get('/', function(req, res) {
 	var today = moment().tz('America/Fortaleza').format('DD-MM-YYYY');
-	var lastUpdate = { created_at: undefined, message: 'Sem recentes atualizações de hotran.' };		
+	var lastUpdate = { created_at: undefined, message: 'Não houve atualização de sistema.' };		
 	models.Log.find({ // Catching hotran log.
 		type: settings.logCategories.hotran,
 	})
@@ -61,7 +61,7 @@ app.get('/', function(req, res) {
 	.exec(function(err, log) {		
 		if(log.length) {
 			var date = moment(log[0].created_at, 'DD-MM-YYYY HH:mm:ss');
-			lastUpdate.message = date.format('DD/MM/YYYY') + " as " + date.format("HH:mm:ss");
+			lastUpdate.message = date.format('DD/MM/YYYY') + " as " + date.format("HH:mm");
 		}
 		res.render('pages/index', {
 			lastUpdate: lastUpdate,

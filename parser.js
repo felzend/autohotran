@@ -13,7 +13,7 @@ var cron = require('node-cron');
 var moment = require('moment-timezone');
 var xlsx = require('node-xlsx');
 
-var schedulerString = '* * * * *';
+var schedulerString = '*/30 * * * *';
 
 // Creating log file if it doesn't exists.
 fs.open(settings.logfile, 'a+', (err, fd) => {
@@ -42,7 +42,9 @@ mongoose.connect(connectionString, {useMongoClient: true, promiseLibrary: global
 	}	
 });
 
-cron.schedule( schedulerString, function() {	
+cron.schedule( schedulerString, function() {
+	var currentHours = moment().tz('America/Fortaleza').format('HH:mm');
+	if( currentHours > "01:00" && currentHours < "08:00" ) return;
 	// Downloading all hotran files.
 	async.eachLimit( settings.hotrans, 1, function(hotran, callback) {
 		var file = fs.createWriteStream( __dirname + hotran.path );

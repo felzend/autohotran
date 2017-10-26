@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Architects+Daughter');
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Exo+2:300,400');
 
 $nav-color: #21B5E1;
 
@@ -7,10 +8,16 @@ button {
 	cursor: pointer;
 	font-family: 'Raleway', sans-serif!important;
 	font-size: 1.1em;
-	font-weight: 300!important;
-	border-radius: 30px!important;
+	font-weight: 300!important;	
 	&:hover {
 		opacity: 0.9;
+	}
+}
+
+.btn-hotran-info {
+	border-color: $nav-color;
+	&:hover {
+		background-color: darken($nav-color, 10%)!important;
 	}
 }
 
@@ -47,15 +54,38 @@ button {
 .footer {
 	text-align: center;
 }
-
-.hotran-update {	
-	font-weight: 700;
-	font-family: 'Raleway', sans-serif;
-	margin: .25em 0;	
-	text-align: right;
+.hotran-container {	
+	font-family: 'Exo 2', sans-serif;
 }
-.hotran-list {
-	
+.about {
+	font-family: 'Raleway', sans-serif;
+	font-size: 1em;
+	font-weight: 300;
+	margin: .5em 0;
+}
+.today-hotrans, .search-hotrans {
+	margin: 1em 0;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+.hotran-update {
+	$percent: 10%;
+	font-family: 'Raleway', sans-serif;
+	animation: flick 1s infinite;
+	@keyframes flick {		
+		25% {
+			color: darken(white, $percent);
+		}
+		50% {
+			color: lighten(white, $percent);
+		}
+		75% {
+			color: darken(white, $percent);
+		}
+		100% {
+			color: lighten(white, $percent);
+		}
+	}	
 }
 .hotran-search-warning {
 	font-size: 0.8em;
@@ -72,8 +102,12 @@ button {
 		}
 	}
 	.modal-title {
-		font-family: 'Architects Daughter', cursive;
+		font-family: 'Exo 2', sans-serif;
 		font-size: 1.5em;
+	}
+	.modal-body {
+		font-family: 'Exo 2', sans-serif;
+		font-weight: 300;
 	}
 }
 .loading {
