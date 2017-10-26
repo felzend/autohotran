@@ -261,6 +261,7 @@
 								<td class="text-center">Origem <i class="fa fa-plane" aria-hidden="true"></i></td>
 								<td class="text-center">Destino <i class="fa fa-plane" aria-hidden="true"></i></td>
 								<td class="text-center">Data Solicitação</td>
+								<td class="text-center">Tipo</td>
 								<td class="text-center"><b>Visualizar HOTRAN</b></td>								
 							</tr>
 						</thead>
@@ -268,15 +269,16 @@
 							<tr v-for="hotran in todayHotrans">
 								<td class="text-center">{{ hotran.nome_empresa }}</td>
 								<td class="text-center">{{ hotran.cod_hotran }}</td>
-								<td class="text-center">{{ hotran.aeronave }} ({{ hotran.assentos }} pax)</td>
+								<td class="text-center">{{ hotran.aeronave }} <p>({{ hotran.assentos }} pax)</p></td>
 								<td class="text-center">{{ hotran.cod_empresa + hotran.voo }}</td>
 								<td class="text-center">
-									{{ hotran.aeroporto_origem.substr(0, 30).concat(' ...') }} (<b>{{ hotran.cod_origem }}</b>)
+									{{ hotran.aeroporto_origem.substr(0, 25).concat(' ...') }} (<b>{{ hotran.cod_origem }}</b>)
 								</td>
 								<td class="text-center">
-									{{ hotran.aeroporto_destino.substr(0, 30).concat(' ...') }} (<b>{{ hotran.cod_destino }}</b>)
+									{{ hotran.aeroporto_destino.substr(0, 25).concat(' ...') }} (<b>{{ hotran.cod_destino }}</b>)
 								</td>
 								<td class="text-center">{{ getFormattedDate(hotran.data_solicitacao) }}</td>
+								<td class="text-center">{{ hotran.tipo }}</td>
 								<td class="text-center">
 									<a v-on:click="toggleModal(hotran)">
 										<button type="button" class="btn btn-outline-info btn-hotran-info">
@@ -290,15 +292,16 @@
 							<tr v-for="hotran in hotrans">
 								<td class="text-center">{{ hotran.nome_empresa }}</td>
 								<td class="text-center">{{ hotran.cod_hotran }}</td>
-								<td class="text-center">{{ hotran.aeronave }} ({{ hotran.assentos }} pax)</td>
+								<td class="text-center">{{ hotran.aeronave }} <p>({{ hotran.assentos }} pax)</p></td>
 								<td class="text-center">{{ hotran.cod_empresa + hotran.voo }}</td>
 								<td class="text-center">
-									{{ hotran.aeroporto_origem.substr(0, 30).concat(' ...') }} (<b>{{ hotran.cod_origem }}</b>)
+									{{ hotran.aeroporto_origem.substr(0, 25).concat(' ...') }} (<b>{{ hotran.cod_origem }}</b>)
 								</td>
 								<td class="text-center">
-									{{ hotran.aeroporto_destino.substr(0, 30).concat(' ...') }} (<b>{{ hotran.cod_destino }}</b>)
+									{{ hotran.aeroporto_destino.substr(0, 25).concat(' ...') }} (<b>{{ hotran.cod_destino }}</b>)
 								</td>
 								<td class="text-center">{{ getFormattedDate(hotran.data_solicitacao) }}</td>
+								<td class="text-center">{{ hotran.tipo }}</td>
 								<td class="text-center">
 									<a v-on:click="toggleModal(hotran)">
 										<button type="button" class="btn btn-outline-info btn-hotran-info">
