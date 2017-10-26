@@ -123,3 +123,10 @@ app.get('/hotran/merge', function(req, res) {
 		res.json(voos);
 	});
 });
+app.get('/hotran/count', function(req, res) {
+	var date = moment().tz('America/Fortaleza').format("YYYY-MM-DD");
+	models.Hotran.count({data_solicitacao: date}, (err, count) => {
+		if(err) throw err;
+		res.end(count.toString());
+	});	
+});
