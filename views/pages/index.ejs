@@ -246,7 +246,7 @@
 			<div class="container-fluid">
 				<p class="about">** Este site é responsável por reunir as solicitações de HOTRAN (horário de transporte) das companhias aéreas brasileiras, a fim de informar os usuários de novos voos solicitados diariamente e em datas específicas.</p>
 				<p class="today-hotrans" v-if="views.today">
-					<span v-if="!todayHotrans.length">Sem novas solicitações de HOTRAN no momento.</span>
+					<span v-if="!todayHotrans.length">Sem novas solicitações de HOTRAN para hoje.</span>
 					<span v-else>Exibindo {{ todayHotrans.length }} solicitações de HOTRAN de hoje.</span>
 				</p>
 				<p class="search-hotrans" v-if="views.search">Exibindo {{ hotrans.length }} solicitações de HOTRAN de acordo com sua pesquisa.</p>
