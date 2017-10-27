@@ -11,7 +11,12 @@
 
 		gtag('config', 'UA-108454703-1');
 	</script>
-	<title>Autohotran Beta!</title>
+	<title>Autohotran - Beta!</title>
+	<meta name="description" content="Visualize as solicitações de HOTRAN (horário de transporte) solicitadas pelas companhias aéreas à ANAC (agência nacional de aviação civil), além de pode realizar buscas por solicitações anteriores e classificá-las por aeroporto, data de solicitação, dentre outros."/>
+	<meta name="distribution" content="global"/>
+	<meta name="keywords" content="anac, hotran, voos, aviação, solicitação, solicitações, aeroporto"/>
+	<meta name="robots" content="index, follow"/>
+	<meta name="author" content="Felipe S. Fernandes"/>
 	<script type="text/javascript">
 		(function($) {
 			$(document).ready(function() {
@@ -244,7 +249,8 @@
 		</nav>
 		<div class="hotran-container">
 			<div class="container-fluid">
-				<p class="about">** Este site é responsável por reunir as solicitações de HOTRAN (horário de transporte) das companhias aéreas brasileiras, a fim de informar os usuários de novos voos solicitados diariamente e em datas específicas.</p>
+				<p class="about">** Este site é responsável por reunir as solicitações de HOTRAN (horário de transporte) das companhias aéreas brasileiras, a fim de informar os usuários de novos voos solicitados diariamente e em datas específicas. As atualizações ocorrem em intervalos de 30 minutos.</p>
+				<p class="about">Visite o <a href="http://cearaconvexo.com.br/" target="_blank">Ceará Convexo!</a></p>
 				<p class="today-hotrans" v-if="views.today">
 					<span v-if="!todayHotrans.length">Sem novas solicitações de HOTRAN para hoje.</span>
 					<span v-else>Exibindo {{ todayHotrans.length }} solicitações de HOTRAN de hoje.</span>
