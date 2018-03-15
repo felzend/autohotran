@@ -1,0 +1,42 @@
+{
+  "name": "autohotran",
+  "version": "2.0.0",
+  "description": "Autohotran update based on SIROS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felzend/autohotran.git"
+  },
+  "keywords": [
+    "autohotran",
+    "hotran",
+    "anac",
+    "infraero",
+    "aeroporto",
+    "airport",
+    "brasil",
+    "fortaleza",
+    "fraport",
+    "siros"
+  ],
+  "author": "Felipe S. Fernandes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felzend/autohotran/issues"
+  },
+  "homepage": "https://github.com/felzend/autohotran#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "dotenv": "^5.0.1",
+    "download": "^6.2.5",
+    "moment-timezone": "^0.5.14",
+    "node-cron": "^1.2.1",
+    "node-run-cmd": "^1.0.1",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.36.1"
+  }
+}
