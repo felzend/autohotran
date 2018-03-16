@@ -4,8 +4,10 @@ var db = require("./database");
 var express = require("express");
 var app = express();
 
+app.set('port', 3000);
 app.set('view engine', 'ejs');
-app.listen(3000, () => {
+app.use(express.static(__dirname + "/public"));
+app.listen(app.get('port'), () => {
     console.log("Server started at :3000");
 });
 

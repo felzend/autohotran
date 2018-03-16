@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,700');
+
+#navigation {
+    background-color: #DB4437;
+}
+
+#navigation .toggler-icon {
+    color: #ffffff;
+}
+
+#navigation .nav-link,
+.site-title {    
+    color: #ffffff!important;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 992px) {
+    #navigation .nav-item {
+        margin: 0 .3em;    
+    }
+}
+
+#navigation .nav-link {
+    font-weight: 400;
+}
+
+.site-title {    
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.8em;
+    font-weight: 300;    
+}
+
+#app {
+    padding: 5em 0;
+}
+
+table.text-center th,
+table.text-center td {
+    text-align: center;
+}

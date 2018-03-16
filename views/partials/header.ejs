@@ -2,48 +2,88 @@
 <html>
 <head>
     <title>Autohotran 2.0</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
     <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script async defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script type="text/javascript">        
         (function($) {
             $(document).ready(function() {
                 Vue.component("loading", {
-                    template: "<div style='text-align: center' class='loading'><i style='font-size: 32px' class='fa fa-circle-notch fa-spin'></i></div>",
+                    template: "<div style='text-align: center; margin: 0 0 1em 0' class='loading'><i style='font-size: 32px' class='fa fa-circle-notch fa-spin'></i></div>",
                 });
                 var app = new Vue({
-                    el: "#app",                    
-                })
+                    el: "#app",
+                    data: {
+                        hotrans: [],
+                    },
+                    methods: {
+                        fetch: function(url, options) {                            
+                            return new Promise((resolve, reject) => {
+                                $.ajax({
+                                    url: url,
+                                    data: options,
+                                    success: function(data) {
+                                        resolve(data);
+                                    }
+                                })
+                            });
+                        }
+                    },
+                    mounted: function() {
+                        this.fetch("./hotrans/fetch", {limit: 100}).then(hotrans => {
+                            this.hotrans = hotrans.filter(hotran => {
+                                hotran.Tipo = hotran.Tipo.charAt(0).toUpperCase() + hotran.Tipo.slice(1).toLowerCase();
+                                hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY - HH:MM");
+                                hotran.DataInicio = moment(hotran.DataInicio).format("DD/MM/YYYY");
+                                hotran.DataFim = moment(hotran.DataFim).format("DD/MM/YYYY");
+                                hotran.Frequencia = Object.keys(hotran).filter(key => {
+                                    // Verificar
+                                    if(["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"].includes(key) && key > 0) return hotran[key];
+                                });
+                                return hotran;
+                            });
+
+                            console.log(this.hotrans);
+                        });
+                    }                    
+                });
             })
         })(jQuery)
     </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light" id="navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars toggler-icon"></i>
     </button>
-    <a class="navbar-brand" href="#">Navbar</a>
-      
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+    <!--<div class="mx-auto"><a class="navbar-brand" href="#">AutoHotran 2.0</a></div>-->
+    <ul class="nav navbar-nav mx-auto">
+        <li class="nav-item">
+            <a class="site-title">AutoHotran v2</a></li>
+        </li>
+    </ul>
+    <div class="collapse navbar-collapse" id="navbarToggler">        
+        <ul class="nav navbar-nav ml-auto">            
+            <li class="nav-item">
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="#">Pesquisa</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
+              <a class="nav-link" href="#">Sobre</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 <div class="container" id="app">
+    <div class="notifier"><loading></loading></div>
+    <div class="content">
