@@ -4,6 +4,11 @@
     background-color: #DB4437;
 }
 
+.btn-themed {
+    background-color: #DB4437;
+    color: white;
+}
+
 #navigation .toggler-icon {
     color: #ffffff;
 }
@@ -30,8 +35,29 @@
     font-weight: 300;    
 }
 
+.information > svg,
+svg.information {
+    background-color: blue;
+    border-radius: 90%;
+    color: white;
+    cursor: pointer;
+}
+
 #app {
     padding: 5em 0;
+}
+
+th {
+    font-family: 'Quicksand', sans-serif;
+}
+
+td {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+}
+
+th.w-15 {
+    width: 15%!important;
 }
 
 table.text-center th,

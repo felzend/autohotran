@@ -46,7 +46,7 @@ var Models = {
         updatedAt : { type : Sequelize.DATE },        
     }),
 
-    Log: seq.define('Log', {
+    Log: seq.define('log', {
         Id : { type : Sequelize.BIGINT, primaryKey : true, autoIncrement : true },
         Info: { type : Sequelize.TEXT, notNull : true },
     }),

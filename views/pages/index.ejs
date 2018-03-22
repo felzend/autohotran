@@ -1,26 +1,4 @@
 <% include ../partials/header %>
-<table class="table responsive table-bordered text-center">
-    <thead>
-        <th>Empresa/Voo</th>        
-        <th>Aeronave</th>        
-        <th>Data Solicitação</th>
-        <th>A Vigorar</th>
-        <th>Origem</th>
-        <th>Destino</th>
-        <th>Tipo</th>
-        <th>Frequência</th>
-    </thead>
-    <tbody>
-        <tr v-for="hotran of hotrans">            
-            <td v-bind:title="hotran.NomeEmpresa">{{ hotran.CodEmpresa }}-{{ hotran.NumeroVoo }}</td>
-            <td>{{ hotran.Equipamento }} ({{ hotran.Passageiros }} pax)</td>
-            <td>{{ hotran.DataSolicitacao }}</td>
-            <td>{{ hotran.DataInicio }}</td>
-            <td v-bind:title="hotran.NomeOrigem">{{ hotran.CodOrigem }}</td>
-            <td v-bind:title="hotran.NomeDestino">{{ hotran.CodDestino }}</td>
-            <td>{{ hotran.Tipo }}</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<hotran-table :hotrans="hotrans"></hotran-table>
+<load-more :hotrans="hotrans"></load-more>
 <% include ../partials/footer %>

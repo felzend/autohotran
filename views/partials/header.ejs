@@ -16,15 +16,72 @@
     <script type="text/javascript">        
         (function($) {
             $(document).ready(function() {
+                $(document).on("click", ".information", function() {
+                    alert( $(this).attr("title") );
+                });
+
                 Vue.component("loading", {
                     template: "<div style='text-align: center; margin: 0 0 1em 0' class='loading'><i style='font-size: 32px' class='fa fa-circle-notch fa-spin'></i></div>",
                 });
+                
+                Vue.component("hotran-table", {
+                    props: ['hotrans'],
+                    template: `
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                                <th>Empresa/Voo</th>        
+                                <th class="w-15">Aeronave</th>        
+                                <th class="w-15">Data Solicitação</th>
+                                <th>A Vigorar</th>
+                                <th class="w-15">Origem</th>
+                                <th class="w-15">Destino</th>
+                                <th class="w-25">Frequência</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="hotran of hotrans">            
+                                    <td>{{ hotran.CodEmpresa }}-{{ hotran.NumeroVoo }} <i v-bind:title="hotran.NomeEmpresa + ' - ' + 'Voo de ' + hotran.Tipo" class="far fa-question-circle information"></i></td>
+                                    <td>{{ hotran.Equipamento }} ({{ hotran.Passageiros }} pax)</td>
+                                    <td>{{ hotran.DataSolicitacao }}</td>
+                                    <td>{{ hotran.DataInicio }}</td>
+                                    <td>{{ hotran.CodOrigem }} ({{ hotran.HoraPartida }}) <span class="information" v-bind:title="'Aeroporto: ' + hotran.NomeOrigem"><i class="far fa-question-circle"></i></span></td>
+                                    <td>{{ hotran.CodDestino }} ({{ hotran.HoraChegada }}) <span class="information" v-bind:title="'Aeroporto: ' + hotran.NomeDestino" ><i class="far fa-question-circle information"></i></span></td>
+                                    <td>{{ hotran.Frequencia }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`,
+                });
+
+                Vue.component("load-more", {
+                    props: ['hotrans'],
+                    methods: {
+                        teste: function() {
+                            // this.hotrans.push - Push nos dados.
+                        }
+                    },
+                    template: `
+                        <div style='text-align: center'><button v-on:click="teste" class="btn btn-themed">Carregar Mais Dados...</button></div>
+                    `
+                });
+
                 var app = new Vue({
                     el: "#app",
                     data: {
+                        dataUrl: "./hotrans/fetch",
                         hotrans: [],
+                        view: 'hotran-tab',
+                        loading: true,
+                    },
+                    filters: {
+                        search: function(value) {
+
+                        }
                     },
                     methods: {
+                        daysOfWeek: function() {
+                            return ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
+                        },
                         fetch: function(url, options) {                            
                             return new Promise((resolve, reject) => {
                                 $.ajax({
@@ -38,20 +95,18 @@
                         }
                     },
                     mounted: function() {
-                        this.fetch("./hotrans/fetch", {limit: 100}).then(hotrans => {
+                        this.fetch(this.dataUrl, {limit: 100, order: [["DataSolicitacao", "DESC"]]}).then(hotrans => {
                             this.hotrans = hotrans.filter(hotran => {
                                 hotran.Tipo = hotran.Tipo.charAt(0).toUpperCase() + hotran.Tipo.slice(1).toLowerCase();
-                                hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY - HH:MM");
+                                hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY (HH:MM)");
                                 hotran.DataInicio = moment(hotran.DataInicio).format("DD/MM/YYYY");
                                 hotran.DataFim = moment(hotran.DataFim).format("DD/MM/YYYY");
-                                hotran.Frequencia = Object.keys(hotran).filter(key => {
-                                    // Verificar
-                                    if(["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"].includes(key) && key > 0) return hotran[key];
-                                });
+                                hotran.Frequencia = Object.keys(hotran).filter(key => { return this.daysOfWeek().includes(key) && hotran[key] > 0 })
+                                hotran.Frequencia = hotran.Frequencia.length == this.daysOfWeek().length ? "Diário" : hotran.Frequencia.join(", ");
                                 return hotran;
                             });
 
-                            console.log(this.hotrans);
+                            this.loading = false;
                         });
                     }                    
                 });
@@ -85,5 +140,5 @@
     </div>
 </nav>
 <div class="container" id="app">
-    <div class="notifier"><loading></loading></div>
-    <div class="content">
+    <div class="notifier"><loading v-show="loading"></loading></div>
+    <div class="content" v-show="!loading">
