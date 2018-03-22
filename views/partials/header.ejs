@@ -54,10 +54,13 @@
                 });
 
                 Vue.component("load-more", {
-                    props: ['hotrans'],
+                    props: ['hotrans', 'url', 'limit', 'offset', 'order', 'fetch'],
                     methods: {
                         teste: function() {
-                            // this.hotrans.push - Push nos dados.
+                            let options = {limit: this.limit, offset: this.offset, order: this.order};                            
+                            this.$parent.fetch(this.url, options).then(hotrans => {
+                                console.log(hotrans);
+                            });                           
                         }
                     },
                     template: `
@@ -72,6 +75,9 @@
                         hotrans: [],
                         view: 'hotran-tab',
                         loading: true,
+                        limit: 10,
+                        offset: 0,
+                        order: [["DataSolicitacao", "DESC"]],
                     },
                     filters: {
                         search: function(value) {
@@ -82,12 +88,13 @@
                         daysOfWeek: function() {
                             return ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
                         },
-                        fetch: function(url, options) {                            
+                        fetch: function(url, options) {
+                            this.offset += this.limit;
                             return new Promise((resolve, reject) => {
                                 $.ajax({
                                     url: url,
                                     data: options,
-                                    success: function(data) {
+                                    success: function(data) {                                        
                                         resolve(data);
                                     }
                                 })
@@ -95,7 +102,7 @@
                         }
                     },
                     mounted: function() {
-                        this.fetch(this.dataUrl, {limit: 100, order: [["DataSolicitacao", "DESC"]]}).then(hotrans => {
+                        this.fetch(this.dataUrl, {limit: this.limit, offset: this.offset, order: this.order}).then(hotrans => {
                             this.hotrans = hotrans.filter(hotran => {
                                 hotran.Tipo = hotran.Tipo.charAt(0).toUpperCase() + hotran.Tipo.slice(1).toLowerCase();
                                 hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY (HH:MM)");
@@ -104,8 +111,8 @@
                                 hotran.Frequencia = Object.keys(hotran).filter(key => { return this.daysOfWeek().includes(key) && hotran[key] > 0 })
                                 hotran.Frequencia = hotran.Frequencia.length == this.daysOfWeek().length ? "Diário" : hotran.Frequencia.join(", ");
                                 return hotran;
-                            });
-
+                            });                          
+                            
                             this.loading = false;
                         });
                     }                    

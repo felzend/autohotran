@@ -1,4 +1,4 @@
 <% include ../partials/header %>
 <hotran-table :hotrans="hotrans"></hotran-table>
-<load-more :hotrans="hotrans"></load-more>
+<load-more :hotrans="hotrans" :url="dataUrl" :limit="limit" :offset="offset" :order="order" fetch=fetch></load-more>
 <% include ../partials/footer %>
