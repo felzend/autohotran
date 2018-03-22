@@ -56,15 +56,14 @@
                 Vue.component("load-more", {
                     props: ['hotrans', 'url', 'limit', 'offset', 'order', 'fetch'],
                     methods: {
-                        teste: function() {
-                            let options = {limit: this.limit, offset: this.offset, order: this.order};                            
-                            this.$parent.fetch(this.url, options).then(hotrans => {
-                                console.log(hotrans);
-                            });                           
+                        fetchData: function() {                            
+                            let options = {limit: this.limit, offset: this.offset, order: this.order};
+                            this.$parent.loading = true; 
+                            this.$parent.fetch(this.url, options).then(this.$parent.fixFetchedHotranData);
                         }
                     },
                     template: `
-                        <div style='text-align: center'><button v-on:click="teste" class="btn btn-themed">Carregar Mais Dados...</button></div>
+                        <div style='text-align: center'><button v-on:click="fetchData" class="btn btn-themed">Carregar Mais Dados</button></div>
                     `
                 });
 
@@ -75,7 +74,7 @@
                         hotrans: [],
                         view: 'hotran-tab',
                         loading: true,
-                        limit: 10,
+                        limit: 50,
                         offset: 0,
                         order: [["DataSolicitacao", "DESC"]],
                     },
@@ -87,6 +86,32 @@
                     methods: {
                         daysOfWeek: function() {
                             return ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
+                        },
+                        fixHotranData: function(hotrans) {
+                            hotrans = hotrans.filter(hotran => {
+                                hotran.Tipo = hotran.Tipo.charAt(0).toUpperCase() + hotran.Tipo.slice(1).toLowerCase();
+                                hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY (HH:MM)");
+                                hotran.DataInicio = moment(hotran.DataInicio).format("DD/MM/YYYY");
+                                hotran.DataFim = moment(hotran.DataFim).format("DD/MM/YYYY");
+                                hotran.Frequencia = Object.keys(hotran).filter(key => { return this.daysOfWeek().includes(key) && hotran[key] > 0 })
+                                hotran.Frequencia = hotran.Frequencia.length == this.daysOfWeek().length ? "Diário" : hotran.Frequencia.join(", ");
+                                return hotran;
+                            });
+
+                            return hotrans;
+                        },
+                        fixFetchedHotranData: function(hotrans) {
+                            hotrans = this.fixHotranData(hotrans);
+                            hotrans.forEach((hotran, index) => {
+                                this.hotrans.push(hotran);                                    
+                            });
+
+                            this.loading = false;
+                        },
+                        fetchHotranDataCallback: function(hotrans) {
+                            this.hotrans = hotrans;
+                            this.hotrans = this.fixHotranData(this.hotrans);
+                            this.loading = false;
                         },
                         fetch: function(url, options) {
                             this.offset += this.limit;
@@ -102,19 +127,7 @@
                         }
                     },
                     mounted: function() {
-                        this.fetch(this.dataUrl, {limit: this.limit, offset: this.offset, order: this.order}).then(hotrans => {
-                            this.hotrans = hotrans.filter(hotran => {
-                                hotran.Tipo = hotran.Tipo.charAt(0).toUpperCase() + hotran.Tipo.slice(1).toLowerCase();
-                                hotran.DataSolicitacao = moment(hotran.DataSolicitacao).format("DD/MM/YYYY (HH:MM)");
-                                hotran.DataInicio = moment(hotran.DataInicio).format("DD/MM/YYYY");
-                                hotran.DataFim = moment(hotran.DataFim).format("DD/MM/YYYY");
-                                hotran.Frequencia = Object.keys(hotran).filter(key => { return this.daysOfWeek().includes(key) && hotran[key] > 0 })
-                                hotran.Frequencia = hotran.Frequencia.length == this.daysOfWeek().length ? "Diário" : hotran.Frequencia.join(", ");
-                                return hotran;
-                            });                          
-                            
-                            this.loading = false;
-                        });
+                        this.fetch(this.dataUrl, {limit: this.limit, offset: this.offset, order: this.order}).then(this.fetchHotranDataCallback);
                     }                    
                 });
             })
@@ -148,4 +161,4 @@
 </nav>
 <div class="container" id="app">
     <div class="notifier"><loading v-show="loading"></loading></div>
-    <div class="content" v-show="!loading">
+    <div class="content">
