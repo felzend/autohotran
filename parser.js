@@ -29,21 +29,27 @@ db.seq.authenticate().then(() => {
     console.log("Conexão ao banco de dados realizada com sucesso!");
     
     async.eachLimit(files, 1, (file, callback) => {
-
-        console.log("Fetching", file.url + "...");
-
-        cmd.run("curl -k " + file.url + " --output " + file.output, { onDone: () => {            
+        let log = new db.Models.Log({
+            Info: "Iniciando o download do arquivo " + file.output,
+            createdAt : currentTime(),
+            updatedAt : currentTime(),
+        });
+        log.save();
+        cmd.run("ping unesp.br"/*"curl -k " + file.url + " --output " + file.output*/, { onDone: () => {            
             var stream = fs.createReadStream(file.output, 'utf8');
-
             stream.pipe(CsvReader({ parseNumbers: true, parseBooleans: true, trim: true }))
             .on('data', function (row) {    
-                row = row.join(' ').trim().split(";"); 
-
+                row = row.join(' ').trim().split(";");
                 rows.push(row);
             })
             .on('end', function (data) {
                 rows.splice(0, 2);
-                
+                let log = new db.Models.Log({
+                    Info: "Iniciou o processo de análise de dados.",
+                    createdAt : currentTime(),
+                    updatedAt : currentTime(),
+                });
+                log.save();
                 async.eachLimit( rows, 1, (row, callback) => {
                     var row = row.map(rdata => {                    
                         if(rdata !== undefined && typeof rdata == "string") rdata = rdata.trim();                        
@@ -83,18 +89,39 @@ db.seq.authenticate().then(() => {
                         updatedAt : currentTime(),
                     };
 
-                    var obj = new db.Models.Hotran(newhotran);
-                    obj.save().then(() => {
-                        ++rowsCount;
-                        console.log("salvou! (" + rowsCount + "/" + rows.length + ").");                        
-                        process.nextTick(callback);
-                    }).catch(err => {
-                        if(err) {
-                            console.log("Erro ao salvar no banco de dados.");
-                            throw err;
-                            process.exit(1);
+                    db.Models.Hotran.findOne({
+                        where: {
+                            CodEmpresa: newhotran.CodEmpresa,
+                            NumeroVoo: newhotran.NumeroVoo,
+                            CodHotran: newhotran.CodHotran,
+                            Etapa: newhotran.Etapa
                         }
-                    });                    
+                    }).then(hotran => {
+                        var obj = new db.Models.Hotran(newhotran);
+                        if(hotran == null) 
+                        {
+                            obj.save().then(() => {
+                                ++rowsCount;
+                                process.nextTick(callback);
+                            }).catch(err => {
+                                if(err) {
+                                    let log = new db.Models.Log({
+                                        Info: "Erro ao salvar no banco de dados",
+                                        createdAt : currentTime(),
+                                        updatedAt : currentTime(),
+                                    });
+                                    log.save();
+                                }
+                            });
+                        }
+                        else
+                        {
+                            hotran.update(newhotran).then(() => {
+                                ++rowsCount;
+                                process.nextTick(callback);
+                            });
+                        }
+                    });
                 }, () => {
                     process.nextTick(callback);
                 });
@@ -103,6 +130,13 @@ db.seq.authenticate().then(() => {
         }});
     
     }, () => {
-        process.exit(1);
+        let log = new db.Models.Log({
+            Info: rowsCount + " dados salvos de um total de "+ rows.length + " analisados.",
+            createdAt : currentTime(),
+            updatedAt : currentTime(),
+        });
+        log.save().then(() => {
+            process.exit(1);
+        });
     });
 });
