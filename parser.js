@@ -35,7 +35,7 @@ db.seq.authenticate().then(() => {
             updatedAt : currentTime(),
         });
         log.save();
-        cmd.run("ping unesp.br"/*"curl -k " + file.url + " --output " + file.output*/, { onDone: () => {            
+        cmd.run("curl -k " + file.url + " --output " + file.output, { onDone: () => {            
             var stream = fs.createReadStream(file.output, 'utf8');
             stream.pipe(CsvReader({ parseNumbers: true, parseBooleans: true, trim: true }))
             .on('data', function (row) {    
