@@ -52,6 +52,13 @@ var Models = {
         createdAt : { type : Sequelize.DATE },
         updatedAt : { type : Sequelize.DATE },
     }),
+
+    File: seq.define('file', {
+        Id : { type : Sequelize.BIGINT, primaryKey : true, autoIncrement : true },
+        Date: { type: Sequelize.TEXT, notNull: true },
+        createdAt : { type : Sequelize.DATE },
+        updatedAt : { type : Sequelize.DATE },
+    }),
 };
 
 // ------------------------------------------------------------------------------------------ //
