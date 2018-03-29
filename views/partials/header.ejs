@@ -24,10 +24,22 @@
                     template: "<div style='text-align: center; margin: 0 0 1em 0' class='loading'><i style='font-size: 32px' class='fa fa-circle-notch fa-spin'></i></div>",
                 });
                 
+                Vue.component("no-data", {
+                    template: `
+                        <div style='text-align: center'><h3>Não há dados no sistema.</h3></div>
+                    `
+                });
+
+                Vue.component("floating-button", {
+                    template: `
+                        <button class="btn"><i class="fas fa-chevron-up"></i></button>
+                    `
+                });
+
                 Vue.component("hotran-table", {
                     props: ['hotrans'],
                     template: `
-                    <div class="table-responsive">
+                    <div class="table-responsive">                        
                         <table class="table table-bordered text-center">
                             <thead>
                                 <th>Empresa/Voo</th>        
@@ -45,7 +57,7 @@
                                     <td>{{ hotran.DataSolicitacao }}</td>
                                     <td>{{ hotran.DataInicio }}</td>
                                     <td>{{ hotran.CodOrigem }} ({{ hotran.HoraPartida }}) <span class="information" v-bind:title="'Aeroporto: ' + hotran.NomeOrigem"><i class="far fa-question-circle"></i></span></td>
-                                    <td>{{ hotran.CodDestino }} ({{ hotran.HoraChegada }}) <span class="information" v-bind:title="'Aeroporto: ' + hotran.NomeDestino" ><i class="far fa-question-circle information"></i></span></td>
+                                    <td>{{ hotran.CodDestino }} ({{ hotran.HoraChegada }}) <span class="information" v-bind:title="'Aeroporto: ' + hotran.NomeDestino" ><i class="far fa-question-circle"></i></span></td>
                                     <td>{{ hotran.Frequencia }}</td>
                                 </tr>
                             </tbody>
@@ -135,11 +147,29 @@
     </script>
 </head>
 <body>
+<div class="modal fade" tabindex="-1" role="dialog" id="about-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sobre o Autohotran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Este site é responsável por reunir as solicitações de HOTRAN (horário de transporte) das companhias aéreas que voam de e para o Brasil, a fim de informar os usuários de novos voos ou alterações dos mesmos. O site é atualizado automaticamente logo que novas informações forem disponibilizadas.</p>          
+                <p>Atualmente, apenas os lançamentos são mostrados, não havendo possibilidade de distinção entre inclusão ou alteração.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-themed" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <nav class="navbar fixed-top navbar-expand-lg navbar-light" id="navigation">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars toggler-icon"></i>
     </button>
-    <!--<div class="mx-auto"><a class="navbar-brand" href="#">AutoHotran 2.0</a></div>-->
     <ul class="nav navbar-nav mx-auto">
         <li class="nav-item">
             <a class="site-title">AutoHotran v2</a></li>
@@ -148,13 +178,16 @@
     <div class="collapse navbar-collapse" id="navbarToggler">        
         <ul class="nav navbar-nav ml-auto">            
             <li class="nav-item">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link btn" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pesquisa</a>
+              <a class="nav-link btn disabled" href="#">Pesquisa</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sobre</a>
+              <a class="nav-link" data-toggle="modal" data-target="#about-modal" href="#">Sobre</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link last-update">Última Atualização: &nbsp;&nbsp;<%- lastUpdate %></a></li>
             </li>
         </ul>
     </div>

@@ -1,8 +1,10 @@
 require("dotenv").config();
 
 var db = require("./database");
+var moment = require('moment-timezone');
 var express = require("express");
 var app = express();
+var settings = require("./settings.js");
 
 app.set('port', 3000);
 app.set('view engine', 'ejs');
@@ -13,8 +15,12 @@ app.listen(app.get('port'), () => {
 
 // --------------------------------------------------------- //
 
-app.get("/", (req, res) => {    
-    res.render("pages/index", {test: 25});
+app.get("/", (req, res) => {
+    db.Models.File.findOne({order:[['createdAt', 'DESC']]}).then(result => {
+        var lastUpdate = ( result == null ) ? "Nunca" : moment(result.createdAt).format('DD/MM/YYYY - HH:mm:ss');
+        var currentYear = moment().tz(settings.defaultTz).format("YYYY");
+        res.render("pages/index", { lastUpdate: lastUpdate, currentYear: currentYear });
+    });
 });
 
 app.get("/hotrans/fetch", (req, res) => {

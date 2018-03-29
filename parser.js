@@ -25,31 +25,30 @@ cron.schedule(settings.cronString, function() {
     }
 
     db.seq.authenticate().then(() => {
-        console.log("Autenticado!");
         db.Models.File.findOne({where:{Date:currentDate}}).then(file => {
             if(file === null) {
                 cmd.run("curl -k -v " + hotranIndex, {onData: (data) => {
                     var nowDate = now.format("M/DD/YYYY");
                     var search = nowDate.replace(/\//g, "\\/");;
-                    var matches = data.toString().match("3\/27\/2018");
+                    var matches = data.toString().match(search);
                     if(matches !== null && matches.length > 0)
                     {
                         let log = new db.Models.Log({
                             Info: "Iniciando o download do arquivo " + hotranFile,
-                            createdAt : now,
-                            updatedAt : now,
+                            createdAt : currentTime(),
+                            updatedAt : currentTime(),
                         });
                         log.save().then(() => {
                             let file = new db.Models.File({
                                 Date: currentDate,
-                                createdAt : now,
-                                updatedAt : now,
+                                createdAt : currentTime(),
+                                updatedAt : currentTime(),
                             });
                             file.save().then(() => {
                                 let log = new db.Models.Log({
                                     Info: "Comprovante de análise diário salvo com sucesso no banco de dados.",
-                                    createdAt : now,
-                                    updatedAt : now,
+                                    createdAt : currentTime(),
+                                    updatedAt : currentTime(),
                                 });
                                 log.save();
                             });
@@ -64,8 +63,8 @@ cron.schedule(settings.cronString, function() {
                                     rows.splice(0, 2);
                                     let log = new db.Models.Log({
                                         Info: "Iniciou o processo de análise de dados.",
-                                        createdAt : now,
-                                        updatedAt : now,
+                                        createdAt : currentTime(),
+                                        updatedAt : currentTime(),
                                     });
                                     log.save().then(() => {
                                         async.eachLimit( rows, 1, (row, callback) => {
@@ -142,8 +141,8 @@ cron.schedule(settings.cronString, function() {
                                         }, () => {
                                             let log = new db.Models.Log({
                                                 Info: rowsCount + " dados salvos de um total de "+ rows.length + " analisados.",
-                                                createdAt : now,
-                                                updatedAt : now,
+                                                createdAt : currentTime(),
+                                                updatedAt : currentTime(),
                                             });
                                             log.save().then(() => {
                                                 //console.log("Encerrou :).");

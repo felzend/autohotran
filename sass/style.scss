@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,700');
+
+$main-color: #DB4437;
+
+$screen-lg: 992px;
+
+#app {
+    padding: 5em 0;
+}
+
+th {
+    font-family: 'Quicksand', sans-serif;
+}
+
+td {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+}
+
+th.w-15 {
+    width: 15%!important;
+}
+
+table.text-center th,
+table.text-center td {
+    text-align: center;
+}
+
+#navigation,
+.btn-themed {
+    background-color: $main-color;
+}
+
+.btn-themed {
+    color: white;
+}
+
+.site-title,
+.nav-link {
+    color: #ffffff!important;
+    text-transform: uppercase;
+}
+
+.site-title {    
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.8em;
+    font-weight: 300;    
+}
+
+#navigation {
+    $white-color: #ffffff;
+    .toggler-icon {
+        color: $white-color;
+    }
+    .navbar-nav {
+        @media screen and (max-width: $screen-lg - 1) {
+            text-align: center;
+        }
+    }
+    .nav-item {
+        @media screen and (min-width: $screen-lg) {
+            margin: 0 .3em;
+        }
+        &:nth-last-child(1) {
+            @media screen and (min-width: $screen-lg) {
+                margin-left: 2em;
+            }
+        }
+    }
+    .nav-link {
+        font-weight: 400;
+        transition: color 0.3s;
+        -webkit-transition: color 0.3s;
+        &.last-update {
+            animation: pulse 0.8s infinite;
+            @keyframes pulse {
+                0% {
+                    color: $white-color;
+                }
+                25% {
+                    color: darken($white-color, 5%);
+                }
+                50% {
+                    color: darken($white-color, 10%);
+                }
+                75% {
+                    color: darken($white-color, 15%);
+                }
+                100% {
+                    color: darken($white-color, 20%);
+                }
+            }
+        }
+        &:hover {
+            color: darken($white-color, 10%)!important;
+        }
+    }
+}
+
+.information svg,
+svg.information {
+    background-color: blue;
+    border-radius: 90%;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.footer {
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: $main-color;
+    padding: .5em 0;
+    color: #ffffff;
+}
