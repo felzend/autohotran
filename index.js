@@ -19,7 +19,9 @@ app.get("/", (req, res) => {
     db.Models.File.findOne({order:[['createdAt', 'DESC']]}).then(result => {
         var lastUpdate = ( result == null ) ? "Nunca" : moment(result.createdAt).format('DD/MM/YYYY - HH:mm:ss');
         var currentYear = moment().tz(settings.defaultTz).format("YYYY");
-        res.render("pages/index", { lastUpdate: lastUpdate, currentYear: currentYear });
+        db.Models.Hotran.count().then(hotransCount => {
+            res.render("pages/index", { lastUpdate: lastUpdate, hotransCount: hotransCount, currentYear: currentYear });
+        });
     });
 });
 
