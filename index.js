@@ -6,7 +6,7 @@ var express = require("express");
 var app = express();
 var settings = require("./settings.js");
 
-app.set('port', 3000);
+app.set('port', 4000);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
 app.listen(app.get('port'), () => {
