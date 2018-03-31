@@ -133,7 +133,6 @@ cron.schedule(settings.cronString, function() {
                                                 else
                                                 {
                                                     hotran.update(newhotran).then(() => {
-                                                        ++rowsCount;
                                                         process.nextTick(callback);
                                                     });
                                                 }
