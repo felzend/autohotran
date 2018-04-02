@@ -1,0 +1,7 @@
+<% include ../partials/header %>
+<p>Há <b><%- hotransCount %></b> registros de solicitações salvos.</p>
+<hotran-table :hotrans="hotrans" v-show="hotrans.length > 0"></hotran-table>
+<no-data v-show="hotrans.length === 0"></no-data>
+<load-more v-show="!loading && hotrans.length > 0" :hotrans="hotrans" :url="dataUrl" :limit="limit" :offset="offset" :order="order" fetch=fetch></load-more></div>
+<loading v-show="loading && hotrans.length > 0"></loading>
+<% include ../partials/footer %>
