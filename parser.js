@@ -28,7 +28,7 @@ cron.schedule(settings.cronString, function() {
         db.Models.File.findOne({where:{Date:currentDate}}).then(file => {
             if(file === null) {
                 cmd.run("curl -k -v " + hotranIndex, {onData: (data) => {
-                    var nowDate = now.format("M/DD/YYYY");
+                    var nowDate = now.format("M/D/YYYY");
                     var search = nowDate.replace(/\//g, "\\/");;
                     var matches = data.toString().match(search);
                     if(matches !== null && matches.length > 0)
